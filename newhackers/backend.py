@@ -61,13 +61,13 @@ def get_stories(page=None):
         stories = rdb[key]
     except KeyError:
         stories = update_page(page)
-        return json.loads(stories)
+        return stories
 
     if too_old(key):
         # background task
         update_page(page)
     
-    return json.loads(stories)
+    return stories
 
     
 def parse_stories(page):

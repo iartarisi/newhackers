@@ -7,7 +7,7 @@ import redis
 
 from newhackers import backend
 from newhackers.utils import valid_url
-from fixtures import FRONT_PAGE, MORE, PAGE_ID, STORIES, STORIES_JSON
+from fixtures import FRONT_PAGE, PAGE_ID, STORIES, STORIES_JSON
 
 
 def seconds_old(secs):
@@ -27,7 +27,7 @@ class ParseStoriesTest(unittest.TestCase):
         self.assertEqual(len(self.stories), backend.STORIES_PER_PAGE)
 
     def test_parse_stories_more_id(self):
-        self.assertEqual(self.more, MORE)
+        self.assertEqual(self.more, STORIES['more'])
 
     def test_parse_stories_titles_are_different(self):
         diff_titles = set(d['title'] for d in self.stories)
@@ -116,14 +116,14 @@ class BackendTest(unittest.TestCase):
         self.rdb.set("/story", STORIES_JSON)
         backend.update_page = mock.Mock()
 
-        self.assertEqual(STORIES, backend.get_stories())
+        self.assertEqual(STORIES_JSON, backend.get_stories())
         backend.update_page.assert_not_called()
 
     def test_get_stories_other_page_cached(self):
         self.rdb.set("/story/" + PAGE_ID, STORIES_JSON)
         backend.update_page = mock.Mock()
 
-        self.assertEqual(STORIES, backend.get_stories(PAGE_ID))
+        self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
         backend.update_page.assert_not_called()
 
     def test_get_stories_cached_too_old_gets_update(self):
@@ -133,7 +133,7 @@ class BackendTest(unittest.TestCase):
             self.rdb.set("/story/%s/updated" % PAGE_ID, seconds_old(31))
             backend.update_page = mock.Mock()
 
-            self.assertEqual(STORIES, backend.get_stories(PAGE_ID))
+            self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
             backend.update_page.assert_called_with(PAGE_ID)
 
     def test_get_token(self):
