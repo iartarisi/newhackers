@@ -58,17 +58,17 @@ def get_stories(page):
      - '<hash>' - a page hash which represents an identifier of a common
        HN or Ask HN page
     
-    Returns None if the page was not found
+    Raises NotFound exception if the page was not found.
 
     """
-    key = '/pages/' + page
+    db_key = '/pages/' + page
     try:
-        stories = rdb[key]
+        stories = rdb[db_key]
     except KeyError:
-        stories = update_page(page)
+        stories = update_page(db_key, page)
         return stories
 
-    if too_old(key):
+    if too_old(db_key):
         # background task
         update_page(page)
     

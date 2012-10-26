@@ -114,33 +114,33 @@ class BackendTest(unittest.TestCase):
 
     def test_get_stories_first_page_cached(self):
         self.rdb.set("/pages/front_page", STORIES_JSON)
-        backend.update_page = mock.Mock()
 
-        self.assertEqual(STORIES_JSON, backend.get_stories('front_page'))
-        backend.update_page.assert_not_called()
+        with mock.patch.object(backend, 'update_page') as update_page:
+            self.assertEqual(STORIES_JSON, backend.get_stories('front_page'))
+            update_page.assert_not_called()
 
     def test_get_stories_not_cached(self):
-        backend.update_page = mock.Mock(return_value='stories')
-
-        self.assertEqual('stories', backend.get_stories('front_page'))
-        backend.update_page.assert_called_with('front_page')
+        with mock.patch.object(backend, 'update_page', return_value='stories'
+                               ) as update_page:
+            self.assertEqual('stories', backend.get_stories('front_page'))
+            update_page.assert_called_with('/pages/front_page', 'front_page')
 
     def test_get_stories_other_page_cached(self):
         self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
-        backend.update_page = mock.Mock()
 
-        self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
-        backend.update_page.assert_not_called()
+        with mock.patch.object(backend, 'update_page') as update_page:
+            self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
+            update_page.assert_not_called()
 
     def test_get_stories_cached_too_old_gets_update(self):
         self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
 
+        self.rdb.set("/pages/%s/updated" % PAGE_ID, seconds_old(31))
+        
         with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
-            self.rdb.set("/pages/%s/updated" % PAGE_ID, seconds_old(31))
-            backend.update_page = mock.Mock()
-
-            self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
-            backend.update_page.assert_called_with(PAGE_ID)
+            with mock.patch.object(backend, 'update_page') as update_page:
+                self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
+                update_page.assert_called_with(PAGE_ID)
 
     def test_get_token(self):
         FNID = "foo42"
