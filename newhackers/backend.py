@@ -49,14 +49,19 @@ def too_old(key):
         return True
 
 
-def get_stories(page=None):
+def get_stories(page):
     """Return a page of stories as a list of story dicts
 
+    :page: string - can be one of:
+     - 'front_page' - retrieves stories from the first HN page
+     - 'ask' - retrieves stories from the first page of Ask HN stories
+     - '<hash>' - a page hash which represents an identifier of a common
+       HN or Ask HN page
+    
     Returns None if the page was not found
 
     """
-    key = ("/story/" + page) if page else "/story"
-
+    key = '/pages/' + page
     try:
         stories = rdb[key]
     except KeyError:
@@ -141,6 +146,7 @@ def parse_stories(page):
             stories[s]['comments'] = None
             stories[s]['score'] = None
             stories[s]['author'] = None
+
     return dict(stories=stories, more=more)
 
 

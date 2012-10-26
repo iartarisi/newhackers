@@ -12,9 +12,17 @@ logging.basicConfig(filename="/tmp/newhackers.log", level=logging.INFO)
 
 @app.route("/stories")
 @app.route("/stories/")
+@app.route("/ask")
+@app.route("/ask/")
+@app.route("/ask/<page>")
 @app.route("/stories/<page>")
 def stories(page=None):
     """Return a page of HN stories"""
+    if request.url_rule.rule in ('/ask', '/ask/'):
+        page = 'ask'
+    elif request.url_rule.rule in ('/stories/', '/stories'):
+        page = 'front_page'
+        
     try:
         stories = backend.get_stories(page)
     except backend.NotFound:

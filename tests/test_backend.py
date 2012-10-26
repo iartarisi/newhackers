@@ -113,24 +113,24 @@ class BackendTest(unittest.TestCase):
         self.assertTrue(backend.too_old("bogus-item"))
 
     def test_get_stories_first_page_cached(self):
-        self.rdb.set("/story", STORIES_JSON)
+        self.rdb.set("/pages/front_page", STORIES_JSON)
         backend.update_page = mock.Mock()
 
-        self.assertEqual(STORIES_JSON, backend.get_stories())
+        self.assertEqual(STORIES_JSON, backend.get_stories('front_page'))
         backend.update_page.assert_not_called()
 
     def test_get_stories_other_page_cached(self):
-        self.rdb.set("/story/" + PAGE_ID, STORIES_JSON)
+        self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
         backend.update_page = mock.Mock()
 
         self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
         backend.update_page.assert_not_called()
 
     def test_get_stories_cached_too_old_gets_update(self):
-        self.rdb.set("/story/" + PAGE_ID, STORIES_JSON)
+        self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
 
         with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
-            self.rdb.set("/story/%s/updated" % PAGE_ID, seconds_old(31))
+            self.rdb.set("/pages/%s/updated" % PAGE_ID, seconds_old(31))
             backend.update_page = mock.Mock()
 
             self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
