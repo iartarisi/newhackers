@@ -2,8 +2,18 @@ from datetime import datetime, timedelta
 import time
 import unittest
 
+import mock
+import redis
+
 from newhackers import backend
 from fixtures import FRONT_PAGE
+
+
+def seconds_old(secs):
+    """Return an epoch float that's :secs: seconds old"""
+    return time.mktime(
+        (datetime.now() - timedelta(seconds=secs)).timetuple())
+
 
 class ParseStoriesTest(unittest.TestCase):
 
@@ -65,3 +75,21 @@ class ParseStoriesTest(unittest.TestCase):
         self.assertIsNone(self.stories[19]['author'])
         # Ask
         self.assertEqual(self.stories[18]['author'], "DonnyV")
+
+class BackendTest(unittest.TestCase):
+    def setUp(self):
+        self.rdb = backend.rdb = redis.Redis(db=13)
+
+    def tearDown(self):
+        self.rdb.flushdb()
+
+    def test_time_too_old(self):
+        with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
+            self.rdb.set("my-item/updated", seconds_old(30))
+            self.assertTrue(backend.too_old("my-item"))
+
+            self.rdb.set("my-item/updated", seconds_old(29))
+            self.assertFalse(backend.too_old("my-item"))
+
+    def test_time_too_old_key_doesnt_exist(self):
+        self.assertTrue(backend.too_old("bogus-item"))

@@ -1,13 +1,43 @@
+from datetime import datetime, timedelta
 import re
 import time
 
 from bs4 import BeautifulSoup
 from parsedatetime import parsedatetime as pdt
+import redis
 
 
+CACHE_INTERVAL = 60  # seconds
 STORIES_PER_PAGE = 30
 
 cal = pdt.Calendar()
+rdb = redis.Redis(8)
+
+
+def too_old(key):
+    """Check if an item in the redis database is too old
+
+    We're following a convention which says that a last_updated
+    timestamp is stored in 'key/updated'. If we can't find the
+    timestamp, then the item is too old, so we return True.
+
+    We check if this timestamp (a float of seconds since the epoch) is
+    too old according to CACHE_INTERVAL
+
+    """
+    try:
+        updated = float(rdb[key + "/updated"])
+    except KeyError:
+        return True
+    else:
+        age = datetime.now() - datetime.fromtimestamp(updated)
+
+    allowed_age = timedelta(seconds=CACHE_INTERVAL)
+    if age < allowed_age:
+        return False
+    else:
+        return True
+
 
 def parse_stories(page):
     """Parse stories from an HN stories page
