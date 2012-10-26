@@ -32,6 +32,10 @@ class ParseStoriesTest(unittest.TestCase):
         # real-life HN, but we got a lucky fixture
         self.assertEqual(len(diff_titles), backend.STORIES_PER_PAGE)
 
+    def test_parse_stories_urls_are_different(self):
+        diff_urls = set(s['link'] for s in self.stories)
+        self.assertEqual(len(diff_urls), backend.STORIES_PER_PAGE)
+
     def test_parse_stories_urls_are_valid(self):
         for story in self.stories:
             try:
