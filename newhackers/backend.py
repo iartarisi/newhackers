@@ -15,6 +15,10 @@ cal = pdt.Calendar()
 rdb = redis.Redis(8)
 
 
+class ClientError(Exception): pass
+class ServerError(Exception): pass
+
+
 def too_old(key):
     """Check if an item in the redis database is too old
 

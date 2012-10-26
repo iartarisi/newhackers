@@ -52,3 +52,37 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.content_type, 'application/json')
             get_stories.assert_called_with('not-found')
             
+    def test_get_token(self):
+        with mock.patch.object(backend, "get_token", return_value="token123"
+                               ) as get_token:
+            response = self.app.post('/get_token',
+                                     data={'user': 'test_user',
+                                           'password': 'test_pass'})
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(json.loads(response.data),
+                             {'token': 'token123'})
+            get_token.assert_called_with('test_user', 'test_pass')
+            
+    def test_get_token_403(self):
+        with mock.patch.object(backend, "get_token",
+                               side_effect=backend.ClientError('Evil Error')
+                               ) as get_token:
+            response = self.app.post('/get_token',
+                                     data={'user': 'test_user',
+                                           'password': 'test_pass'})
+            get_token.assert_called_with('test_user', 'test_pass')
+            self.assertEqual(response.status_code, 403)
+            self.assertEqual(json.loads(response.data),
+                             {'error': 'Evil Error'})
+
+    def test_get_token_500(self):
+        with mock.patch.object(backend, "get_token",
+                               side_effect=backend.ServerError('Evil Error')
+                               ) as get_token:
+            response = self.app.post('/get_token',
+                                     data={'user': 'test_user',
+                                           'password': 'test_pass'})
+            get_token.assert_caleed_with('test_user', 'test_pass')
+            self.assertEqual(response.status_code, 500)
+            self.assertEqual(json.loads(response.data),
+                             {'error': 'Evil Error'})
