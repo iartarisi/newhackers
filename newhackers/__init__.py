@@ -15,11 +15,12 @@ logging.basicConfig(filename="/tmp/newhackers.log", level=logging.INFO)
 @app.route("/stories/<page>")
 def stories(page=None):
     """Return a page of HN stories"""
-    stories = backend.get_stories(page)
-
-    if not stories:
+    try:
+        stories, more = backend.get_stories(page).values()
+    except backend.NotFound:
         abort(404)
-    return jsonify(stories=stories)
+
+    return jsonify(stories=stories, more=more)
 
 
 @app.route("/get_token", methods=["POST"])

@@ -19,6 +19,7 @@ cal = pdt.Calendar()
 rdb = redis.Redis(8)
 
 
+class NotFound(Exception): pass
 class ClientError(Exception): pass
 class ServerError(Exception): pass
 
@@ -47,6 +48,7 @@ def too_old(key):
     else:
         return True
 
+
 def get_stories(page=None):
     """Return a page of stories as a list of story dicts
 
@@ -73,23 +75,25 @@ def parse_stories(page):
 
     :page: an HTML document which contains 30 stories
 
-    Returns a list of dicts. e.g.
+    Returns a dict with a more link and a list of stories dicts. E.g.
 
-    [{'title': "I sooo don't like Apple anymore",
-      'link': "http://iwoz.woo",
-      'comments': 1337,
-      'score': 42,
-      'time': 1350901062.0,
-      'author': 'woz'},
+    {'more': '4AVKeJz9TP',
+     'stories': [
+          {'title': "I sooo don't like Apple anymore",
+           'link': "http://iwoz.woo",
+           'comments': 1337,
+           'score': 42,
+           'time': 1350901062.0,
+           'author': 'woz'},
 
-     {'title': "Work for my startup for free",
-      'link': "item?id=1111",
-      'time': 1351333328.0,
-      'score': None,
-      'author': None,
-      'comments': None},
+          {'title': "Work for my startup for free",
+           'link': "item?id=1111",
+           'time': 1351333328.0,
+           'score': None,
+           'author': None,
+           'comments': None},
 
-      ...]
+           ...]}
 
     """
     soup = BeautifulSoup(page)
@@ -101,7 +105,8 @@ def parse_stories(page):
     # The title and the link don't have a valign attribute
     # Finally there is a 'More' link to the next page of stories.
     titles = soup.find_all("td", "title", valign=False)
-    more_link = titles.pop(-1)
+    more = _extract_more(titles.pop(-1))
+
     assert len(titles) == STORIES_PER_PAGE
 
     stories = [{'title': title.text.strip(),
@@ -136,7 +141,7 @@ def parse_stories(page):
             stories[s]['comments'] = None
             stories[s]['score'] = None
             stories[s]['author'] = None
-    return stories
+    return dict(stories=stories, more=more)
 
 
 def get_token(user, password):
@@ -176,3 +181,7 @@ def get_token(user, password):
 def _decode_time(timestamp):
     """Decode time from a relative timestamp to a localtime float"""
     return time.mktime(cal.parse(timestamp)[0])
+
+def _extract_more(more_soup):
+    """Extract a page identifier from the <a> element in a BeautifulSoup"""
+    return more_soup.find("a")['href'].split('fnid=')[-1]

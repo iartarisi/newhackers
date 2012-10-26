@@ -7,7 +7,7 @@ import redis
 
 from newhackers import backend
 from newhackers.utils import valid_url
-from fixtures import FRONT_PAGE, PAGE_ID, STORIES, STORIES_JSON
+from fixtures import FRONT_PAGE, MORE, PAGE_ID, STORIES, STORIES_JSON
 
 
 def seconds_old(secs):
@@ -21,10 +21,13 @@ class ParseStoriesTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         with open(FRONT_PAGE) as f:
-            self.stories = backend.parse_stories(f.read())
-
+            self.stories, self.more = backend.parse_stories(f.read()).values()
+            
     def test_parse_stories_right_length(self):
         self.assertEqual(len(self.stories), backend.STORIES_PER_PAGE)
+
+    def test_parse_stories_more_id(self):
+        self.assertEqual(self.more, MORE)
 
     def test_parse_stories_titles_are_different(self):
         diff_titles = set(d['title'] for d in self.stories)

@@ -16,4 +16,5 @@ STORIES = [{u'title': u"I sooo don't like Apple anymore",
 STORIES_JSON = json.dumps(STORIES)
 PAGE_ID = "qwerty54"
 
-
+# This data is tied to the current front_page.html
+MORE = "4AVKeJz9TP"

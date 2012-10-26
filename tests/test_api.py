@@ -6,7 +6,11 @@ import redis
 from werkzeug.exceptions import NotFound
 
 from newhackers import app, backend
-from fixtures import PAGE_ID, STORIES, STORIES_JSON
+from fixtures import MORE, PAGE_ID, STORIES, STORIES_JSON
+
+
+STORIES_AND_MORE = {'stories': STORIES, 'more': MORE}
+
 
 class JSONApiTest(unittest.TestCase):
 
@@ -28,24 +32,25 @@ class JSONApiTest(unittest.TestCase):
 
     def test_stories_default(self):
         with mock.patch.object(backend, "get_stories",
-                               return_value=STORIES) as get_stories:
+                               return_value=STORIES_AND_MORE) as get_stories:
             response = self.app.get('/stories/')
             get_stories.assert_called_with(None)
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content_type, 'application/json')
-            self.assertEqual(json.loads(response.data), {'stories':STORIES})
+            self.assertEqual(json.loads(response.data), STORIES_AND_MORE)
 
     def test_stories_specific(self):
         with mock.patch.object(backend, "get_stories",
-                               return_value=STORIES) as get_stories:
+                               return_value=STORIES_AND_MORE) as get_stories:
             response = self.app.get('/stories/' + PAGE_ID)
             get_stories.assert_called_with(PAGE_ID)
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content_type, 'application/json')
-            self.assertEqual(json.loads(response.data), {'stories':STORIES})
+            self.assertEqual(json.loads(response.data), STORIES_AND_MORE)
 
     def test_stories_404(self):
-        with mock.patch.object(backend, "get_stories", return_value=None
+        with mock.patch.object(backend, "get_stories",
+                               side_effect=backend.NotFound
                                ) as get_stories:
             response = self.app.get('/stories/not-found')
             self.assertEqual(response.status_code, 404)
