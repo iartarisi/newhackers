@@ -53,7 +53,7 @@ def get_stories(page):
     """Return a page of stories as a list of story dicts
 
     :page: string - can be one of:
-     - 'front_page' - retrieves stories from the first HN page
+     - '' - retrieves stories from the first HN page
      - 'ask' - retrieves stories from the first page of Ask HN stories
      - '<hash>' - a page hash which represents an identifier of a common
        HN or Ask HN page

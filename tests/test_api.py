@@ -31,7 +31,7 @@ class JSONApiTest(unittest.TestCase):
         with mock.patch.object(backend, "get_stories",
                                return_value=STORIES_JSON) as get_stories:
             response = self.app.get('/stories/')
-            get_stories.assert_called_with('front_page')
+            get_stories.assert_called_with('')
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content_type, 'application/json')
             self.assertEqual(response.data, STORIES_JSON)

@@ -21,7 +21,7 @@ def stories(page=None):
     if request.url_rule.rule in ('/ask', '/ask/'):
         page = 'ask'
     elif request.url_rule.rule in ('/stories/', '/stories'):
-        page = 'front_page'
+        page = ''
         
     try:
         stories = backend.get_stories(page)
