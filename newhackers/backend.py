@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import logging
 import json
 import re
 import time
@@ -6,9 +7,12 @@ import time
 from bs4 import BeautifulSoup
 from parsedatetime import parsedatetime as pdt
 import redis
+import requests
 
 
 CACHE_INTERVAL = 60  # seconds
+HN_LOGIN = "https://news.ycombinator.com/newslogin?whence=news"
+HN_LOGIN_POST = 'https://news.ycombinator.com/y'
 STORIES_PER_PAGE = 30
 
 cal = pdt.Calendar()
@@ -133,6 +137,41 @@ def parse_stories(page):
             stories[s]['score'] = None
             stories[s]['author'] = None
     return stories
+
+
+def get_token(user, password):
+    """Login on HN and return a user token
+
+    :user: username string
+    :password: password string
+
+    Returns a user token string which needs to be given as a parameter
+    for API methods which require a user to be signed in such as
+    commenting or voting.
+
+    Raises a ClientError if authentication failed.
+
+    """
+    r = requests.get(HN_LOGIN)
+    soup = BeautifulSoup(r.content)
+    try:
+        fnid = soup.find('input', attrs=dict(name='fnid'))['value']
+    except TypeError:
+        logging.error("Failed parsing response from %s.\n%s"
+                      % (HN_LOGIN, r.content))
+        raise ServerError("Authentication failed. Unknown server error.")
+
+    r = requests.post(HN_LOGIN_POST,
+                      data={'fnid': fnid, 'u': user, 'p': password})
+
+    # XXX HN returns 200 on failed authentication, so we have to EAFP
+    try:
+        user_token = r.cookies['user']
+    except KeyError:
+        raise ClientError("Authentication failed. Bad user/password.")
+    else:
+        return user_token
+
 
 def _decode_time(timestamp):
     """Decode time from a relative timestamp to a localtime float"""

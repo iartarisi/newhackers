@@ -132,3 +132,44 @@ class BackendTest(unittest.TestCase):
 
             self.assertEqual(STORIES, backend.get_stories(PAGE_ID))
             backend.update_page.assert_called_with(PAGE_ID)
+
+    def test_get_token(self):
+        FNID = "foo42"
+        mock_get = mock.Mock(return_value=mock.Mock(
+                content='<input name="fnid" value="%s">foobar</input>' % FNID))
+        mock_post = mock.Mock(return_value=mock.Mock(
+                cookies={'user': 'user_token'}))
+
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            with mock.patch.object(backend.requests, "post", mock_post) as post:
+                token = backend.get_token("test_user", "test_pass")
+                get.assert_called_with(backend.HN_LOGIN)
+                post.assert_called_with(backend.HN_LOGIN_POST,
+                                        data={'u': "test_user",
+                                              'p': "test_pass",
+                                              'fnid': "foo42"})
+                self.assertEqual(token, "user_token")
+
+    def test_get_token_failed_get(self):
+        mock_get = mock.Mock(return_value=mock.Mock(
+                content='blueberries'))
+
+        with mock.patch.object(backend.logging, "error") as log_error:
+            with mock.patch.object(backend.requests, "get", mock_get) as get:
+                self.assertRaises(backend.ServerError,
+                                  backend.get_token, "test_user", "test_pass")
+                self.assertIn("Failed parsing response",
+                              log_error.call_args[0][0])
+                self.assertIn("blueberries", log_error.call_args[0][0])
+                
+    def test_post_token_failed_post(self):
+        FNID = "foo42"
+        mock_get = mock.Mock(return_value=mock.Mock(
+                content='<input name="fnid" value="%s">foobar</input>' % FNID))
+        mock_post = mock.Mock(return_value=mock.Mock(cookies={}))
+
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            with mock.patch.object(backend.requests, "post", mock_post) as post:
+                with self.assertRaisesRegexp(
+                    backend.ClientError, ".*Bad user/password.*") as exc:
+                    backend.get_token("bad_user", "bad_pass")
