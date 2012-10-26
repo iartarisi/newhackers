@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import json
 import re
 import time
 
@@ -38,9 +39,27 @@ def too_old(key):
     else:
         return True
 
-def get_stories(page):
-    pass
+def get_stories(page=None):
+    """Return a page of stories as a list of story dicts
 
+    Returns None if the page was not found
+
+    """
+    key = ("/story/" + page) if page else "/story"
+
+    try:
+        stories = rdb[key]
+    except KeyError:
+        stories = update_page(page)
+        return json.loads(stories)
+
+    if too_old(key):
+        # background task
+        update_page(page)
+    
+    return json.loads(stories)
+
+    
 def parse_stories(page):
     """Parse stories from an HN stories page
 

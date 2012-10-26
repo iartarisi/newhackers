@@ -7,7 +7,7 @@ import redis
 
 from newhackers import backend
 from newhackers.utils import valid_url
-from fixtures import FRONT_PAGE
+from fixtures import FRONT_PAGE, PAGE_ID, STORIES, STORIES_JSON
 
 
 def seconds_old(secs):
@@ -108,3 +108,27 @@ class BackendTest(unittest.TestCase):
 
     def test_time_too_old_key_doesnt_exist(self):
         self.assertTrue(backend.too_old("bogus-item"))
+
+    def test_get_stories_first_page_cached(self):
+        self.rdb.set("/story", STORIES_JSON)
+        backend.update_page = mock.Mock()
+
+        self.assertEqual(STORIES, backend.get_stories())
+        backend.update_page.assert_not_called()
+
+    def test_get_stories_other_page_cached(self):
+        self.rdb.set("/story/" + PAGE_ID, STORIES_JSON)
+        backend.update_page = mock.Mock()
+
+        self.assertEqual(STORIES, backend.get_stories(PAGE_ID))
+        backend.update_page.assert_not_called()
+
+    def test_get_stories_cached_too_old_gets_update(self):
+        self.rdb.set("/story/" + PAGE_ID, STORIES_JSON)
+
+        with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
+            self.rdb.set("/story/%s/updated" % PAGE_ID, seconds_old(31))
+            backend.update_page = mock.Mock()
+
+            self.assertEqual(STORIES, backend.get_stories(PAGE_ID))
+            backend.update_page.assert_called_with(PAGE_ID)
