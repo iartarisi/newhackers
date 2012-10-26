@@ -140,7 +140,7 @@ class BackendTest(unittest.TestCase):
         with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
             with mock.patch.object(backend, 'update_page') as update_page:
                 self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
-                update_page.assert_called_with(PAGE_ID)
+                update_page.assert_called_with('/pages/' + PAGE_ID, PAGE_ID)
 
     def test_get_token(self):
         FNID = "foo42"
@@ -182,3 +182,31 @@ class BackendTest(unittest.TestCase):
                 with self.assertRaisesRegexp(
                     backend.ClientError, ".*Bad user/password.*") as exc:
                     backend.get_token("bad_user", "bad_pass")
+
+    def test_update_page_not_found(self):
+        mock_get = mock.Mock(return_value=mock.Mock(
+                text='No such item.'))
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            self.assertRaises(backend.NotFound, backend.update_page,
+                              'test_key', 'test_url')
+            get.assert_called_with(backend.HN + 'test_url')
+
+    def test_update_page_server_error(self):
+        mock_get = mock.Mock(return_value=mock.Mock(
+                text='Unexpected weirdness.'))
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            self.assertRaises(backend.ServerError, backend.update_page,
+                              'test_key', 'test_url')
+            get.assert_called_with(backend.HN + 'test_url')
+
+    def test_update_page(self):
+        RESPONSE_TEXT = '<html>good stories</html>'
+        mock_get = mock.Mock(return_value=mock.Mock(
+                text=RESPONSE_TEXT))
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            with mock.patch.object(backend, "parse_stories",
+                                   mock.Mock(return_value=STORIES)) as parse:
+                stories_json = backend.update_page("test_key", "test_url")
+                get.assert_called_with(backend.HN + "test_url")
+                parse.assert_called_with(RESPONSE_TEXT)
+                self.assertEqual(self.rdb.get("test_key"), STORIES_JSON)

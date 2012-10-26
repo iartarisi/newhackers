@@ -11,12 +11,13 @@ import requests
 
 
 CACHE_INTERVAL = 60  # seconds
-HN_LOGIN = "https://news.ycombinator.com/newslogin?whence=news"
-HN_LOGIN_POST = 'https://news.ycombinator.com/y'
+HN = "https://news.ycombinator.com/"
+HN_LOGIN = HN + "newslogin?whence=news"
+HN_LOGIN_POST = HN + 'y'
 STORIES_PER_PAGE = 30
 
 cal = pdt.Calendar()
-rdb = redis.Redis(8)
+rdb = redis.Redis(db=8)
 
 
 class NotFound(Exception): pass
@@ -49,8 +50,40 @@ def too_old(key):
         return True
 
 
+def update_page(db_key, url):
+    """Updates a page in the database
+
+    The page is downloaded, parsed and then stored in the database as a
+    JSON string. This string is also returned by the function.
+    
+    :db_key: a redis string of the key where the stories page will be stored
+    :url: the HN URL path where the page will be downloaded from
+
+    Raises NotFound when the page could not be found on the remote
+    server or ServerError in case the server returned a response that we
+    could not understand. (It's still the server's fault because it
+    doesn't even have sensible status codes)
+
+    """
+    res = requests.get(HN + url)
+    # XXX HN is ignorant of HTTP status codes
+    # all errors seem to be plain text sentences
+    if res.text in ['No such item.', 'Unknown.']:
+        raise NotFound
+
+    if not res.text.startswith("<html>"):
+        raise ServerError("HN is weird.")
+
+    stories = parse_stories(res.text)
+    stories_json = json.dumps(stories)
+
+    rdb[db_key] = stories_json
+
+    return stories_json
+
+
 def get_stories(page):
-    """Return a page of stories as a list of story dicts
+    """Return a page of stories
 
     :page: string - can be one of:
      - '' - retrieves stories from the first HN page
@@ -70,7 +103,7 @@ def get_stories(page):
 
     if too_old(db_key):
         # background task
-        update_page(page)
+        update_page(db_key, page)
     
     return stories
 
