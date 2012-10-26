@@ -38,6 +38,8 @@ def too_old(key):
     else:
         return True
 
+def get_stories(page):
+    pass
 
 def parse_stories(page):
     """Parse stories from an HN stories page
