@@ -6,6 +6,7 @@ import mock
 import redis
 
 from newhackers import backend
+from newhackers.utils import valid_url
 from fixtures import FRONT_PAGE
 
 
@@ -31,6 +32,16 @@ class ParseStoriesTest(unittest.TestCase):
         # real-life HN, but we got a lucky fixture
         self.assertEqual(len(diff_titles), backend.STORIES_PER_PAGE)
 
+    def test_parse_stories_urls_are_valid(self):
+        for story in self.stories:
+            try:
+                self.assertTrue(valid_url(story['link']),
+                                "URL is invalid: " + story['link'])
+            except AssertionError:
+                # Ask HN isn't a valid url, but it's still good
+                if not story['link'].startswith("item?id="):
+                    raise
+        
     def test_parse_stories_time(self):
         def almost_equal(a, b):
             """A more approximate equality comparison to suit our test env"""
