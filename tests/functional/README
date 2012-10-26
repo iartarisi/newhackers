@@ -1,0 +1,5 @@
+These tests aren't activated by default, because they require internet access. Also I'm afraid pg will ban us ;).
+
+In order to run them, just run nosetests or python -m unittest discover from this directory if you have the hn package installed. Otherwise you need to run these from the root of the project: nosetests -vs tests/functional.
+
+You can also enable them to be part of the testsuite by creating an empty __init__.py file in this directory.
