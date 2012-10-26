@@ -119,6 +119,12 @@ class BackendTest(unittest.TestCase):
         self.assertEqual(STORIES_JSON, backend.get_stories('front_page'))
         backend.update_page.assert_not_called()
 
+    def test_get_stories_not_cached(self):
+        backend.update_page = mock.Mock(return_value='stories')
+
+        self.assertEqual('stories', backend.get_stories('front_page'))
+        backend.update_page.assert_called_with('front_page')
+
     def test_get_stories_other_page_cached(self):
         self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
         backend.update_page = mock.Mock()
