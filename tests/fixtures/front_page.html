@@ -1,0 +1,1377 @@
+<html>
+ <head>
+  <link href="http://ycombinator.com/news.css" rel="stylesheet" type="text/css">
+   <link href="http://ycombinator.com/favicon.ico" rel="shortcut icon">
+    <script>
+     function byId(id) {
+  return document.getElementById(id);
+}
+
+function vote(node) {
+  var v = node.id.split(/_/);   // {'up', '123'}
+  var item = v[1]; 
+
+  // hide arrows
+  byId('up_'   + item).style.visibility = 'hidden';
+  byId('down_' + item).style.visibility = 'hidden';
+
+  // ping server
+  var ping = new Image();
+  ping.src = node.href;
+
+  return false; // cancel browser nav
+}
+    </script>
+    <title>
+     Hacker News
+    </title>
+   </link>
+  </link>
+ </head>
+ <body>
+  <center>
+   <table bgcolor="#f6f6ef" border="0" cellpadding="0" cellspacing="0" width="85%">
+    <tr>
+     <td bgcolor="#ff6600">
+      <table border="0" cellpadding="0" cellspacing="0" style="padding:2px" width="100%">
+       <tr>
+        <td style="width:18px;padding-right:4px">
+         <a href="http://ycombinator.com">
+          <img height="18" src="http://ycombinator.com/images/y18.gif" style="border:1px #ffffff solid;" width="18"/>
+         </a>
+        </td>
+        <td style="line-height:12pt; height:10px;">
+         <span class="pagetop">
+          <b>
+           <a href="news">
+            Hacker News
+           </a>
+          </b>
+          <img height="1" src="http://ycombinator.com/images/s.gif" width="10">
+           <a href="newest">
+            new
+           </a>
+           |
+           <a href="newcomments">
+            comments
+           </a>
+           |
+           <a href="ask">
+            ask
+           </a>
+           |
+           <a href="jobs">
+            jobs
+           </a>
+           |
+           <a href="submit">
+            submit
+           </a>
+          </img>
+         </span>
+        </td>
+        <td style="text-align:right;padding-right:4px;">
+         <span class="pagetop">
+          <a href="newslogin?whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37">
+           login
+          </a>
+         </span>
+        </td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+    <tr style="height:10px">
+    </tr>
+    <tr>
+     <td>
+      <table border="0" cellpadding="0" cellspacing="0">
+       <tr>
+        <td align="right" class="title" valign="top">
+         91.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4698446&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4698446">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4698446">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://mashable.com/2012/10/25/yahoo-acquires-stamped/">
+          Marissa Mayer Makes First Yahoo Acquisition: Stamped
+         </a>
+         <span class="comhead">
+          (mashable.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4698446">
+          68 points
+         </span>
+         by
+         <a href="user?id=kine">
+          kine
+         </a>
+         22 hours ago  |
+         <a href="item?id=4698446">
+          56 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         92.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4692456&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4692456">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4692456">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://chester.id.au/2012/10/24/my-experience-with-wpengine/">
+          My experience with WPEngine
+         </a>
+         <span class="comhead">
+          (chester.id.au)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4692456">
+          362 points
+         </span>
+         by
+         <a href="user?id=lasonrisa">
+          lasonrisa
+         </a>
+         2 days ago  |
+         <a href="item?id=4692456">
+          240 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         93.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4696899&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4696899">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4696899">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://opensourcehacker.com/2012/10/24/ssh-key-and-passwordless-login-basics-for-developers/">
+          SSH key and passwordless login basics for developers
+         </a>
+         <span class="comhead">
+          (opensourcehacker.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4696899">
+          97 points
+         </span>
+         by
+         <a href="user?id=miohtama">
+          miohtama
+         </a>
+         1 day ago  |
+         <a href="item?id=4696899">
+          41 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         94.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4698701&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4698701">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4698701">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="https://postgres.heroku.com/blog/past/2012/10/25/announcing_follow/">
+          Heroku releases Followers into General Availability
+         </a>
+         <span class="comhead">
+          (heroku.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4698701">
+          46 points
+         </span>
+         by
+         <a href="user?id=jorde">
+          jorde
+         </a>
+         22 hours ago  |
+         <a href="item?id=4698701">
+          16 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         95.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4697377&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4697377">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4697377">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.phoronix.com/scan.php?page=news_item&amp;px=MTIxNDk">
+          Raspberry Pi GPU Driver Turns Out To Be a Shim
+         </a>
+         <span class="comhead">
+          (phoronix.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4697377">
+          113 points
+         </span>
+         by
+         <a href="user?id=ari_elle">
+          ari_elle
+         </a>
+         1 day ago  |
+         <a href="item?id=4697377">
+          29 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         96.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4696768&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4696768">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4696768">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.codeproject.com/Articles/478527/X86-ARM-Emulator">
+          X86/ARM Emulator
+         </a>
+         <span class="comhead">
+          (codeproject.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4696768">
+          60 points
+         </span>
+         by
+         <a href="user?id=AndreyKarpov">
+          AndreyKarpov
+         </a>
+         1 day ago  |
+         <a href="item?id=4696768">
+          8 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         97.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4694499&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4694499">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4694499">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-dev/46258">
+          Ruby 2.0.0 feature freeze
+         </a>
+         <span class="comhead">
+          (nagaokaut.ac.jp)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4694499">
+          204 points
+         </span>
+         by
+         <a href="user?id=ujeezy">
+          ujeezy
+         </a>
+         1 day ago  |
+         <a href="item?id=4694499">
+          32 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         98.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4696214&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4696214">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4696214">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://arstechnica.com/staff/2005/11/1816/">
+          Siracusa on Microsoft
+         </a>
+         <span class="comhead">
+          (arstechnica.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4696214">
+          103 points
+         </span>
+         by
+         <a href="user?id=tmoretti">
+          tmoretti
+         </a>
+         1 day ago  |
+         <a href="item?id=4696214">
+          58 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         99.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4701720&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4701720">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4701720">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.nature.com/nature/journal/v490/n7421/full/490469a.html">
+          Wall Street's thirst for water: a market for water will drive up food prices
+         </a>
+         <span class="comhead">
+          (nature.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4701720">
+          27 points
+         </span>
+         by
+         <a href="user?id=ananyob">
+          ananyob
+         </a>
+         4 hours ago  |
+         <a href="item?id=4701720">
+          47 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         100.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4696949&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4696949">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4696949">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://physics.stackexchange.com/q/40886">
+          Could someone jump from the international space station and live?
+         </a>
+         <span class="comhead">
+          (stackexchange.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4696949">
+          58 points
+         </span>
+         by
+         <a href="user?id=alykhalid">
+          alykhalid
+         </a>
+         1 day ago  |
+         <a href="item?id=4696949">
+          41 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         101.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4701959&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4701959">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4701959">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="item?id=4701959">
+          57 updates 1016.18 MB will be downloaded
+         </a>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4701959">
+          3 points
+         </span>
+         by
+         <a href="user?id=jebblue">
+          jebblue
+         </a>
+         3 hours ago  |
+         <a href="item?id=4701959">
+          1 comment
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         102.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4692858&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4692858">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4692858">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://stevecorona.com/how-i-automated-the-boring-parts-of-life">
+          How I automated the boring parts of life
+         </a>
+         <span class="comhead">
+          (stevecorona.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4692858">
+          280 points
+         </span>
+         by
+         <a href="user?id=mmahemoff">
+          mmahemoff
+         </a>
+         2 days ago  |
+         <a href="item?id=4692858">
+          208 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         103.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4695828&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4695828">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4695828">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.slideshare.net/KyleDrake/hybrid-concurrency-patterns">
+          "Ruby developers need to stop using EventMachine. It's the wrong direction."
+         </a>
+         <span class="comhead">
+          (slideshare.net)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4695828">
+          142 points
+         </span>
+         by
+         <a href="user?id=caseorganic">
+          caseorganic
+         </a>
+         1 day ago  |
+         <a href="item?id=4695828">
+          67 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         104.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4694663&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4694663">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4694663">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/">
+          Using python and k-means to find dominant colors in images
+         </a>
+         <span class="comhead">
+          (charlesleifer.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4694663">
+          180 points
+         </span>
+         by
+         <a href="user?id=coleifer">
+          coleifer
+         </a>
+         1 day ago  |
+         <a href="item?id=4694663">
+          31 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         105.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4699810&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4699810">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4699810">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://refer.ly/blog/five-lessons-from-yc-startup-school/">
+          YC Startup School: Lessons for a First-Time Founder
+         </a>
+         <span class="comhead">
+          (refer.ly)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4699810">
+          24 points
+         </span>
+         by
+         <a href="user?id=dmor">
+          dmor
+         </a>
+         18 hours ago  |
+         <a href="item?id=4699810">
+          2 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         106.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4701153&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4701153">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4701153">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="https://hacks.mozilla.org/2012/10/hacks-weekly-css-flexbox-designing-javascript-apis-websockets-and-more/">
+          Hacks Weekly – CSS Flexbox, Designing JavaScript APIs, WebSockets and more
+         </a>
+         <span class="comhead">
+          (mozilla.org)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4701153">
+          6 points
+         </span>
+         by
+         <a href="user?id=thegarside">
+          thegarside
+         </a>
+         9 hours ago  |
+         <a href="item?id=4701153">
+          discuss
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         107.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4701546&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4701546">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4701546">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="https://github.com/Gawen/parikstra" rel="nofollow">
+          Parikstra, a Python module to calculate Parisian transport journeys
+         </a>
+         <span class="comhead">
+          (github.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4701546">
+          3 points
+         </span>
+         by
+         <a href="user?id=gawenr">
+          gawenr
+         </a>
+         6 hours ago  |
+         <a href="item?id=4701546">
+          discuss
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         108.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4696808&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4696808">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4696808">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://blog.wolfram.com/2012/10/24/falling-faster-than-the-speed-of-sound/">
+          The math of faster-than-sound freefall
+         </a>
+         <span class="comhead">
+          (wolfram.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4696808">
+          74 points
+         </span>
+         by
+         <a href="user?id=peterbush">
+          peterbush
+         </a>
+         1 day ago  |
+         <a href="item?id=4696808">
+          26 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         109.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4697400&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4697400">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4697400">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="item?id=4697400">
+          Ask HN: What is this? 158268a350000000
+         </a>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4697400">
+          118 points
+         </span>
+         by
+         <a href="user?id=DonnyV">
+          DonnyV
+         </a>
+         1 day ago  |
+         <a href="item?id=4697400">
+          65 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         110.
+        </td>
+        <td>
+        </td>
+        <td class="title">
+         <a href="item?id=4698010">
+          Rap Genius (YC S11) Seeks Mobile Czar
+         </a>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         1 day ago
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         111.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4696748&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4696748">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4696748">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://onemilliontweetmap.com">
+          The one million tweet map
+         </a>
+         <span class="comhead">
+          (onemilliontweetmap.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4696748">
+          70 points
+         </span>
+         by
+         <a href="user?id=thibaut_barrere">
+          thibaut_barrere
+         </a>
+         1 day ago  |
+         <a href="item?id=4696748">
+          33 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         112.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4700305&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4700305">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4700305">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.texts.io/">
+          Texts — Edit in Rich Text, store in Plain Text with Markdown
+         </a>
+         <span class="comhead">
+          (texts.io)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4700305">
+          14 points
+         </span>
+         by
+         <a href="user?id=dbh937">
+          dbh937
+         </a>
+         15 hours ago  |
+         <a href="item?id=4700305">
+          2 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         113.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4695430&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4695430">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4695430">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://picru.st/">
+          Pi Crust: Connect things to your Rasperry Pi
+         </a>
+         <span class="comhead">
+          (picru.st)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4695430">
+          65 points
+         </span>
+         by
+         <a href="user?id=joewalnes">
+          joewalnes
+         </a>
+         1 day ago  |
+         <a href="item?id=4695430">
+          14 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         114.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4698111&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4698111">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4698111">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/">
+          On Being A Senior Engineer
+         </a>
+         <span class="comhead">
+          (kitchensoap.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4698111">
+          17 points
+         </span>
+         by
+         <a href="user?id=timf">
+          timf
+         </a>
+         1 day ago  |
+         <a href="item?id=4698111">
+          discuss
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         115.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4701964&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4701964">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4701964">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://dilbert.com/blog/entry/the_value_of_ideas__update/" rel="nofollow">
+          The Value of Ideas - Update
+         </a>
+         <span class="comhead">
+          (dilbert.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4701964">
+          4 points
+         </span>
+         by
+         <a href="user?id=cwan">
+          cwan
+         </a>
+         3 hours ago  |
+         <a href="item?id=4701964">
+          discuss
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         116.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4697915&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4697915">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4697915">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="https://pingpoll.me">
+          Show HN: Get notified when new presidential polls are released
+         </a>
+         <span class="comhead">
+          (pingpoll.me)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4697915">
+          36 points
+         </span>
+         by
+         <a href="user?id=railsjedi">
+          railsjedi
+         </a>
+         1 day ago  |
+         <a href="item?id=4697915">
+          34 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         117.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4692401&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4692401">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4692401">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.raspberrypi.org/archives/2221">
+          Open Source ARM userland
+         </a>
+         <span class="comhead">
+          (raspberrypi.org)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4692401">
+          213 points
+         </span>
+         by
+         <a href="user?id=hermanhermitage">
+          hermanhermitage
+         </a>
+         2 days ago  |
+         <a href="item?id=4692401">
+          58 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         118.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4697193&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4697193">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4697193">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://transferwise.com/blog/2012-10/one-real-exchange-rate">
+          There's only one exchange rate
+         </a>
+         <span class="comhead">
+          (transferwise.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4697193">
+          69 points
+         </span>
+         by
+         <a href="user?id=tomazstolfa">
+          tomazstolfa
+         </a>
+         1 day ago  |
+         <a href="item?id=4697193">
+          47 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         119.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4701412&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4701412">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4701412">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://www.bbc.co.uk/news/world-asia-china-20091675" rel="nofollow">
+          New York Times blocked in China over Wen Jiabao wealth story
+         </a>
+         <span class="comhead">
+          (bbc.co.uk)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4701412">
+          3 points
+         </span>
+         by
+         <a href="user?id=cskau">
+          cskau
+         </a>
+         7 hours ago  |
+         <a href="item?id=4701412">
+          discuss
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr>
+        <td align="right" class="title" valign="top">
+         120.
+        </td>
+        <td>
+         <center>
+          <a href="vote?for=4700627&amp;dir=up&amp;whence=%2f%78%3f%66%6e%69%64%3d%79%52%69%66%62%35%47%72%6a%37" id="up_4700627">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4700627">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="http://jsparse.meteor.com/">
+          Jsparser - visual JS parser
+         </a>
+         <span class="comhead">
+          (meteor.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="subtext">
+         <span id="score_4700627">
+          8 points
+         </span>
+         by
+         <a href="user?id=eranation">
+          eranation
+         </a>
+         13 hours ago  |
+         <a href="item?id=4700627">
+          discuss
+         </a>
+        </td>
+       </tr>
+       <tr style="height:5px">
+       </tr>
+       <tr style="height:10px">
+       </tr>
+       <tr>
+        <td colspan="2">
+        </td>
+        <td class="title">
+         <a href="/x?fnid=4AVKeJz9TP" rel="nofollow">
+          More
+         </a>
+        </td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <img height="10" src="http://ycombinator.com/images/s.gif" width="0">
+       <table cellpadding="1" cellspacing="0" width="100%">
+        <tr>
+         <td bgcolor="#ff6600">
+         </td>
+        </tr>
+       </table>
+       <br>
+        <center>
+         <span class="yclinks">
+          <a href="lists">
+           Lists
+          </a>
+          |
+          <a href="rss">
+           RSS
+          </a>
+          |
+          <a href="http://ycombinator.com/bookmarklet.html">
+           Bookmarklet
+          </a>
+          |
+          <a href="http://ycombinator.com/newsguidelines.html">
+           Guidelines
+          </a>
+          |
+          <a href="http://ycombinator.com/newsfaq.html">
+           FAQ
+          </a>
+          |
+          <a href="http://ycombinator.com/newsnews.html">
+           News News
+          </a>
+          |
+          <a href="item?id=363">
+           Feature Requests
+          </a>
+          |
+          <a href="http://ycombinator.com">
+           Y Combinator
+          </a>
+          |
+          <a href="http://ycombinator.com/apply.html">
+           Apply
+          </a>
+          |
+          <a href="http://ycombinator.com/lib.html">
+           Library
+          </a>
+         </span>
+         <br>
+          <br>
+           <form action="http://www.hnsearch.com/search#request/all" method="get">
+            Search:
+            <input name="q" size="17" type="text" value=""/>
+           </form>
+           <br>
+           </br>
+          </br>
+         </br>
+        </center>
+       </br>
+      </img>
+     </td>
+    </tr>
+   </table>
+  </center>
+ </body>
+</html>
