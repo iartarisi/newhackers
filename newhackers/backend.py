@@ -172,8 +172,15 @@ def parse_stories(page):
             if 'discuss' in meta.text:  # Zero comments
                 stories[s]['comments'] = 0
             else:
-                stories[s]['comments'] = int(re.search(
-                    "(\d+)\s+comments?", meta.text).group(1))
+                try:
+                    stories[s]['comments'] = int(re.search(
+                            "(\d+)\s+comments?", meta.text).group(1))
+                except AttributeError:
+                    # I found an instance where there was just the text
+                    # 'comments', without any count. I'm assuming that
+                    # even stranger things could happen
+                    stories[s]['comments'] = -1
+
         else:  # Jobs post
             stories[s]['time'] = _decode_time(meta.text.strip())
             stories[s]['comments'] = None

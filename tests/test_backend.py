@@ -50,25 +50,30 @@ class ParseStoriesTest(unittest.TestCase):
                     raise
         
     def test_parse_stories_time(self):
-        def almost_equal(a, b):
-            """A more approximate equality comparison to suit our test env"""
-            return a + 1 == b or a == b + 1 or self.assertEqual(a, b)
-
         # first item is dated 22 hours ago
-        almost_equal(self.stories[0]['time'], time.mktime(
-                (datetime.now() - timedelta(hours=22)).timetuple()))
+        self.assertAlmostEqual(
+            self.stories[0]['time'],
+            time.mktime((datetime.now() - timedelta(hours=22)).timetuple()),
+            delta=1)
 
         # 2 day ago
-        almost_equal(self.stories[1]['time'], time.mktime(
-                (datetime.now() - timedelta(days=2)).timetuple()))
+        self.assertAlmostEqual(
+            self.stories[1]['time'],
+            time.mktime((datetime.now() - timedelta(days=2)).timetuple()),
+            delta=1)
 
         # jobs post is dated one day ago
-        almost_equal(self.stories[18]['time'], time.mktime(
-                (datetime.now() - timedelta(days=1)).timetuple()))
+        self.assertAlmostEqual(
+            self.stories[18]['time'],
+            time.mktime((datetime.now() - timedelta(days=1)).timetuple()),
+            delta=1)
             
     def test_parse_stories_comments(self):
         self.assertEqual(self.stories[0]['comments'], 56)
         self.assertEqual(self.stories[10]['comments'], 1)
+
+        # this story has just the text comments, without any count
+        self.assertEqual(self.stories[5]['comments'], -1)
         
         # Jobs
         self.assertIsNone(self.stories[19]['comments'])
