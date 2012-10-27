@@ -47,3 +47,12 @@ class FunctionalTest(unittest.TestCase):
         self.assertEqual(resp.content_type, 'application/json')
         r_data = json.loads(resp.data)
         self.assertEqual(r_data, {'error': '404: Not Found'})
+
+    def test_ask_hn(self):
+        resp = self.app.get('/ask/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content_type, 'application/json')
+        r_data = json.loads(resp.data)
+        self.assertItemsEqual(('more', 'stories'), r_data)
+        for story in r_data['stories']:
+            self.assertTrue(story['link'].startswith('item?id='))
