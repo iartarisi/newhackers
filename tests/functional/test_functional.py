@@ -41,7 +41,7 @@ class FunctionalTest(unittest.TestCase):
         self.assertItemsEqual(['more', 'stories'], r_data)
         self.assertEqual(len(r_data['stories']), config.STORIES_PER_PAGE)
         self.assertItemsEqual(
-            ['time', 'comments', 'score', 'author', 'title', 'link'],
+            ['time', 'comments_no', 'score', 'author', 'title', 'link'],
             r_data['stories'][0])
 
     def test_not_found_page(self):
@@ -59,3 +59,6 @@ class FunctionalTest(unittest.TestCase):
         self.assertItemsEqual(('more', 'stories'), r_data)
         for story in r_data['stories']:
             self.assertTrue(story['link'].startswith('item?id='))
+        self.assertItemsEqual(
+            ['time', 'comments_no', 'score', 'author', 'title', 'link'],
+            r_data['stories'][0])

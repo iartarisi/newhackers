@@ -113,19 +113,19 @@ class ParseStoriesTest(unittest.TestCase):
             delta=1)
 
     def test_parse_stories_comments(self):
-        self.assertEqual(self.stories[0]['comments'], 56)
-        self.assertEqual(self.stories[10]['comments'], 1)
+        self.assertEqual(self.stories[0]['comments_no'], 56)
+        self.assertEqual(self.stories[10]['comments_no'], 1)
 
         # this story has just the text comments, without any count
-        self.assertEqual(self.stories[5]['comments'], -1)
+        self.assertEqual(self.stories[5]['comments_no'], -1)
 
         # Jobs
-        self.assertIsNone(self.stories[19]['comments'])
+        self.assertIsNone(self.stories[19]['comments_no'])
         # Ask
-        self.assertEqual(self.stories[18]['comments'], 65)
+        self.assertEqual(self.stories[18]['comments_no'], 65)
 
         # discuss
-        self.assertEqual(self.stories[15]['comments'], 0)
+        self.assertEqual(self.stories[15]['comments_no'], 0)
 
     def test_parse_stories_points(self):
         self.assertEqual(self.stories[0]['score'], 68)

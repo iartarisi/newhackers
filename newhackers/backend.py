@@ -84,7 +84,7 @@ def parse_stories(page):
      'stories': [
           {'title': "I sooo don't like Apple anymore",
            'link': "http://iwoz.woo",
-           'comments': 1337,
+           'comments_no': 1337,
            'score': 42,
            'time': 1350901062.0,
            'author': 'woz'},
@@ -94,7 +94,7 @@ def parse_stories(page):
            'time': 1351333328.0,
            'score': None,
            'author': None,
-           'comments': None},
+           'comments_no': None},
 
            ...]}
 
@@ -147,7 +147,7 @@ def _parse_subtexts(soup):
 
     Returns e.g.
     
-     [{'comments': 1337,
+     [{'comments_no': 1337,
        'score': 42,
        'time': 1350901062.0,
        'author': 'woz'},
@@ -155,7 +155,7 @@ def _parse_subtexts(soup):
       {'time': 1351333328.0,
        'score': None,
        'author': None,
-       'comments': None},
+       'comments_no': None},
       ...]
 
     Returns None if no comments were found
@@ -183,20 +183,20 @@ def _parse_subtexts(soup):
                     "(\d+)\s+points?", meta.text).group(1))
             stories[s]['author'] = meta.a.text.strip()
             if 'discuss' in meta.text:  # Zero comments
-                stories[s]['comments'] = 0
+                stories[s]['comments_no'] = 0
             else:
                 try:
-                    stories[s]['comments'] = int(re.search(
+                    stories[s]['comments_no'] = int(re.search(
                             "(\d+)\s+comments?", meta.text).group(1))
                 except AttributeError:
                     # I found an instance where there was just the text
                     # 'comments', without any count. I'm assuming that
                     # even stranger things could happen
-                    stories[s]['comments'] = -1
+                    stories[s]['comments_no'] = -1
 
         else:  # Jobs post
             stories[s]['time'] = _decode_time(meta.text.strip())
-            stories[s]['comments'] = None
+            stories[s]['comments_no'] = None
             stories[s]['score'] = None
             stories[s]['author'] = None
 
@@ -211,5 +211,3 @@ def _extract_more(more_soup):
 def _decode_time(timestamp):
     """Decode time from a relative timestamp to a localtime float"""
     return time.mktime(cal.parse(timestamp)[0])
-
-
