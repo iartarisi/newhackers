@@ -35,7 +35,7 @@ class BackendTest(unittest.TestCase):
                 text='No such item.'))
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             self.assertRaises(backend.NotFound, backend.update_page,
-                              'test_key', 'test_url')
+                              '/pages/test_key', 'test_url')
             get.assert_called_with(config.HN + 'test_url')
 
     def test_update_page_server_error(self):
@@ -43,7 +43,7 @@ class BackendTest(unittest.TestCase):
                 text='Unexpected weirdness.'))
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             self.assertRaises(backend.ServerError, backend.update_page,
-                              'test_key', 'test_url')
+                              '/pages/test_key', 'test_url')
             get.assert_called_with(config.HN + 'test_url')
 
     def test_update_page(self):
@@ -53,10 +53,10 @@ class BackendTest(unittest.TestCase):
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             with mock.patch.object(backend, "parse_stories",
                                    mock.Mock(return_value=STORIES)) as parse:
-                stories_json = backend.update_page("test_key", "test_url")
+                stories_json = backend.update_page("/pages/test_key", "test_url")
                 get.assert_called_with(config.HN + "test_url")
                 parse.assert_called_with(RESPONSE_TEXT)
-                self.assertEqual(self.rdb.get("test_key"), STORIES_JSON)
+                self.assertEqual(self.rdb.get("/pages/test_key"), STORIES_JSON)
                 self.assertEqual(stories_json, STORIES_JSON)
 
 

@@ -65,12 +65,18 @@ def update_page(db_key, url):
     if not res.text.startswith("<html>"):
         raise ServerError("HN is weird.")
 
-    stories = parse_stories(res.text)
-    stories_json = json.dumps(stories)
+    if db_key.startswith('/pages'):
+        result = parse_stories(res.text)
+    elif db_key.startswith('/comments'):
+        result = parse_comments(res.text)
+    else:
+        raise TypeError('Wrong DB Key.')
+        
+    result_json = json.dumps(result)
 
-    rdb[db_key] = stories_json
+    rdb[db_key] = result_json
 
-    return stories_json
+    return result_json
 
 
 def parse_comments(page):
