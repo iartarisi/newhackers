@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import json
+import time
 
 import redis
 import requests
@@ -71,7 +72,6 @@ def update_page(db_key, url):
     result_json = json.dumps(result)
 
     rdb[db_key] = result_json
+    rdb[db_key + '/updated'] = time.time()
 
     return result_json
-
-
