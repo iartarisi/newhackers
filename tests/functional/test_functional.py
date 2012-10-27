@@ -1,7 +1,9 @@
 import json
 import unittest
 
-from newhackers import app, config
+import redis
+
+from newhackers import app, backend, config
 
 
 TEST_USER = 'trichechus'
@@ -12,6 +14,7 @@ class FunctionalTest(unittest.TestCase):
 
     def setUp(self):
         self.app = app.test_client()
+        backend.rdb = redis.Redis(db=13)
 
     def test_get_token(self):
         resp = self.app.post('/get_token', data={'user': TEST_USER,
