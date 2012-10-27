@@ -1,6 +1,9 @@
 from flask import json
 
 FRONT_PAGE = "tests/fixtures/front_page.html"
+COMMENTS = "tests/fixtures/comments.html"
+NO_COMMENTS = "tests/fixtures/no_comments.html"
+ASK_COMMENTS = "tests/fixtures/ask_comments.html"
 STORIES = {'more': "4AVKeJz9TP",  # this is tied to the current front_page.html
            'stories': [{u'title': u"I sooo don't like Apple anymore",
                         u'link': u"http://iwoz.woo",

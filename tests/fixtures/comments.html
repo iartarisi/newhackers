@@ -1,0 +1,2641 @@
+<html>
+ <head>
+  <link href="http://ycombinator.com/news.css" rel="stylesheet" type="text/css">
+   <link href="http://ycombinator.com/favicon.ico" rel="shortcut icon">
+    <script>
+     function byId(id) {
+  return document.getElementById(id);
+}
+
+function vote(node) {
+  var v = node.id.split(/_/);   // {'up', '123'}
+  var item = v[1]; 
+
+  // hide arrows
+  byId('up_'   + item).style.visibility = 'hidden';
+  byId('down_' + item).style.visibility = 'hidden';
+
+  // ping server
+  var ping = new Image();
+  ping.src = node.href;
+
+  return false; // cancel browser nav
+}
+    </script>
+    <title>
+     AWS outage summary | Hacker News
+    </title>
+   </link>
+  </link>
+ </head>
+ <body>
+  <center>
+   <table bgcolor="#f6f6ef" border="0" cellpadding="0" cellspacing="0" width="85%">
+    <tr>
+     <td bgcolor="#ff6600">
+      <table border="0" cellpadding="0" cellspacing="0" style="padding:2px" width="100%">
+       <tr>
+        <td style="width:18px;padding-right:4px">
+         <a href="http://ycombinator.com">
+          <img height="18" src="http://ycombinator.com/images/y18.gif" style="border:1px #ffffff solid;" width="18"/>
+         </a>
+        </td>
+        <td style="line-height:12pt; height:10px;">
+         <span class="pagetop">
+          <b>
+           <a href="news">
+            Hacker News
+           </a>
+          </b>
+          <img height="1" src="http://ycombinator.com/images/s.gif" width="10">
+           <a href="newest">
+            new
+           </a>
+           |
+           <a href="newcomments">
+            comments
+           </a>
+           |
+           <a href="ask">
+            ask
+           </a>
+           |
+           <a href="jobs">
+            jobs
+           </a>
+           |
+           <a href="submit">
+            submit
+           </a>
+          </img>
+         </span>
+        </td>
+        <td style="text-align:right;padding-right:4px;">
+         <span class="pagetop">
+          <a href="newslogin?whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+           login
+          </a>
+         </span>
+        </td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+    <tr style="height:10px">
+    </tr>
+    <tr>
+     <td>
+      <table border="0">
+       <tr>
+        <td>
+         <center>
+          <a href="vote?for=4705067&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705067">
+           <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+          </a>
+          <span id="down_4705067">
+          </span>
+         </center>
+        </td>
+        <td class="title">
+         <a href="https://aws.amazon.com/message/680342/">
+          AWS outage summary
+         </a>
+         <span class="comhead">
+          (amazon.com)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td colspan="1">
+        </td>
+        <td class="subtext">
+         <span id="score_4705067">
+          107 points
+         </span>
+         by
+         <a href="user?id=tch">
+          tch
+         </a>
+         11 hours ago  |
+         <a href="item?id=4705067">
+          45 comments
+         </a>
+        </td>
+       </tr>
+       <tr style="height:10px">
+       </tr>
+       <tr>
+        <td>
+        </td>
+        <td>
+         <form action="/r" method="post">
+          <input name="fnid" type="hidden" value="FzWuOV8JWj">
+           <textarea cols="60" name="text" rows="6">
+           </textarea>
+           <br>
+            <br>
+             <input type="submit" value="add comment"/>
+            </br>
+           </br>
+          </input>
+         </form>
+        </td>
+       </tr>
+      </table>
+      <br>
+       <br>
+        <table border="0">
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705763&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705763">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705763">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=seldo">
+                 seldo
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705763">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I dunno about you, but I could use a TL;DR for this:
+                 <p>
+                  1. They fucked up an internal DNS change and didn't notice
+                  <p>
+                   2. Internal systems on EBS hosts piled up with messages trying to get to the non-existent domain
+                   <p>
+                    3. Eventually the messages used up all the memory on the EBS hosts, and thousands of EBS hosts began to die simultaneously
+                    <p>
+                     4. Meanwhile, panicked operators trying to slow down this tidal wave hit the Throttle Everything button
+                     <p>
+                      5. The throttling was so aggressive the even normal levels of operation became impossible
+                      <p>
+                       6. The incident was a single AZ, but the throttling was across the whole region, which spread the pain further
+                       <p>
+                        [Everybody who got throttled gets a 3-hour refund]
+                        <p>
+                         7. Any single-AZ RDS instance on a dead EBS host was fucked
+                         <p>
+                          8.
+                          <i>
+                           Multi
+                          </i>
+                          -AZ RDS instances ran into two separate bugs, and either became stuck or hit a replication race condition and shut down
+                          <p>
+                           [Everybody whose multi-AZ RDS didn't fail over gets 10 days free credit]
+                           <p>
+                            9. Single-AZ ELB instances in the broken AZ failed because they use EBS too
+                            <p>
+                             10. Because everybody was freaking out and trying to fix their ELBs, the ELB service ran out of IP addresses and locked up
+                             <p>
+                              11. Multi-AZ ELB instances took too long to notice EBS was broken and then hit a bug and didn't fail over properly anyway
+                              <p>
+                               [ELB users get no refund, which seems harsh]
+                               <p>
+                                For those keeping score, that's 1 human error, 2 dependency chains, 3 design flaws, 3 instances of inadequate monitoring, and 5 brand-new internal bugs. From the length and groveling tone of the report, I can only assume that a big chunk of customers are very, VERY angry at them.
+                               </p>
+                              </p>
+                             </p>
+                            </p>
+                           </p>
+                          </p>
+                         </p>
+                        </p>
+                       </p>
+                      </p>
+                     </p>
+                    </p>
+                   </p>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705763&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705841&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705841">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705841">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=cperciva">
+                 cperciva
+                </a>
+                3 hours ago  |
+                <a href="item?id=4705841">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I'm looking at this a bit differently.  My reading of this is "a series of subtle and bizarre failures combined in a way which nobody could ever have anticipated".  I think I'm a pretty good architect and coder, but I would never claim that I could design a system which couldn't fail in this sort of way -- in fact, "a background task is unable to complete, resulting in it gradually increasing its memory usage, ultimately causing a system to fail" is the one-line description of an outage Tarsnap had in December of last year.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705841&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4706034&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4706034">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4706034">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=antirez">
+                 antirez
+                </a>
+                24 minutes ago  |
+                <a href="item?id=4706034">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 That's the problem. As a designer your goal is not to claim that you can design unflawed system. Instead it is to use all your humility (
+                 <i>
+                  and
+                 </i>
+                 skills) to design stuff that are simple enough that are unlikely to fail because the complexity level reaches the limit of prevention and ability to analyze the failure modes.
+                 <p>
+                  I would like to know how much of the design in places like AWS is made more complex by
+                  <i>
+                   the requirements of HA itself
+                  </i>
+                  , but my guess is, a lot.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4706034&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705857&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705857">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705857">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=btb">
+                 btb
+                </a>
+                3 hours ago  |
+                <a href="item?id=4705857">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 My general take on their writeup was that they have too many services that depend on EBS working. They should try to find ways to decouple critical services like loadbalancers and Amazon RDS from EBS.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705857&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705880&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705880">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705880">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=Terretta">
+                 Terretta
+                </a>
+                2 hours ago  |
+                <a href="item?id=4705880">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Databases (RDS) do need storage and EBS is their tool for that.  If something else was better, it should replace EBS across products.
+                 <p>
+                  To your point, w/o knowing architecture, seems like ELB run state could likely be on ephemeral storage (if ELBs are EC2 instances) backed by configs on S3 unless run state is crucial across resets.  If not instances, maybe use S3 directly, or ElastiCache.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705880&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="120"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705897&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705897">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705897">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=barrkel">
+                 barrkel
+                </a>
+                2 hours ago  |
+                <a href="item?id=4705897">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Heterogeneity aids resilience because it reduces the risk that the same mode of failure occurs simultaneously. It's not clear to me that there should be one and only one mechanism for storage, because variety has a value in and of itself, apart from relative merits of different kinds of storage.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705897&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705831&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705831">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705831">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=pbhjpbhj">
+                 pbhjpbhj
+                </a>
+                3 hours ago  |
+                <a href="item?id=4705831">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Sounds like a perfect storm [of imperfection].
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705831&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705180&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705180">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705180">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=lukev">
+                 lukev
+                </a>
+                10 hours ago  |
+                <a href="item?id=4705180">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I am always astonished by how many layers these bugs actually have. It's easy to start out blaming AWS, but if anyone can realistically say they could have anticipated this type of issue at a system level, they're deluding themselves.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705180&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705387&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705387">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705387">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=bcantrill">
+                 bcantrill
+                </a>
+                8 hours ago  |
+                <a href="item?id=4705387">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Full disclosure: I work for an AWS competitor.
+                 <p>
+                  While none of the specific AWS systemic failures may themselves be foreseeable, it is not true that issues of this nature cannot be anticipated:  the architecture of their system (and in particular, their insistence on network storage for local data) allows for cascading failure modes in which single failures blossom to systemic ones.  AWS is not the only entity to have made this mistake with respect to network storage in the cloud; I, too, was fooled.[1]
+                  <p>
+                   We have learned this lesson the hard way, many times over:  local storage should be local, even in a distributed system.  So while we cannot predict the specifics of the next EBS failure, we can say with absolute certainty that there will be a next failure -- and that it will be one in which the magnitude of the system failure is far greater than the initial failing component or subsystem.  With respect to network storage in the cloud, the only way to win is not to play.
+                   <p>
+                    [1]
+                    <a href="http://joyent.com/blog/network-storage-in-the-cloud-delicious-but-deadly" rel="nofollow">
+                     http://joyent.com/blog/network-storage-in-the-cloud-deliciou...
+                    </a>
+                   </p>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705387&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705536&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705536">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705536">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=bigiain">
+                 bigiain
+                </a>
+                7 hours ago  |
+                <a href="item?id=4705536">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 FWIW, once Amazon decided that an availability zone is an unreliable unit (and they tell you this up front, and strongly suggest running multiple AZ architectures for anything where you require reliability), then any cascading failure mode in a single AZ is not something you'd expect them to spend too much time protecting against. Sure, the cascade from EBS faults to RDS and ELB meant this affected more of their single AZ customers than it would have otherwise, but anyone using a singe AZ knew upfront that Amazon advised against that, and never claimed they intended to provide high-availability in single AZs.
+                 <p>
+                  So yeah, you're right - these systemic failures can be anticipated, and Amazon's advice (to spread your important infrastructure across multiple AZs) would have protected users from most of this. (I feel quite a lot of sympathy for the engineers involved in the cross-AZ failures this incident revealed - the multi-AZ RDS and ELB failures are things customers doing everything they were told got bitten by anyway, and are probably rightly annoyed...)
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705536&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="120"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705775&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705775">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705775">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=seldo">
+                 seldo
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705775">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 While Amazon do indeed say that multi-AZ is the way to go, their last 3 major incidents (including last year's cloudpocalypse) have all been full-region incidents.
+                 <p>
+                  IMHO, their biggest design problem is that they build their systems on top of each other (e.g. ELB is built on EBS and EIP). So when one system goes down, it takes down half a dozen others -- this is especially true of EBS, and especially dangerous because the services it takes down, like ELB, are the services people are supposed to be using to route around EBS failures.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705775&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4706042&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4706042">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4706042">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=digeridoo">
+                 digeridoo
+                </a>
+                19 minutes ago  |
+                <a href="item?id=4706042">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 To be honest, EBS is the special sauce that makes me stick with AWS. There are so many little things that become so much easier by having network storage. To me the cost of upgrading or migrating machines using local storage is just not worth the perceived reliability gain to me.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4706042&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705604&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705604">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705604">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=antirez">
+                 antirez
+                </a>
+                6 hours ago  |
+                <a href="item?id=4705604">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Very wise comment IMHO. More complex = more complex failure modes. The only way to improve is Less complex.
+Well also probably local storage has a number of other advantages from the point of view of performance.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705604&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="120"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705816&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705816">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705816">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=dchichkov">
+                 dchichkov
+                </a>
+                3 hours ago  |
+                <a href="item?id=4705816">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I don't think that there is an obvious way to make it less complex. But complexity is not inherently bad. Internet is very complex, yet it is robust.
+                 <p>
+                  What feels wrong here, is that Amazon systems are too trusting to other Amazon internal systems.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705816&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="160"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4706046&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4706046">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4706046">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=antirez">
+                 antirez
+                </a>
+                17 minutes ago  |
+                <a href="item?id=4706046">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Moving storage locally seems like a good move. When complexity is still too high and there are no ways to make it simpler (I don't think that's the case, btw) relax your requirements.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4706046&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705808&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705808">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705808">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=DanielRibeiro">
+                 DanielRibeiro
+                </a>
+                3 hours ago  |
+                <a href="item?id=4705808">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I believe the damage of cascading failures was also masterfully exposed during your talk on QCon Last year:
+                 <a href="http://www.infoq.com/presentations/Debugging-Production-Systems" rel="nofollow">
+                  http://www.infoq.com/presentations/Debugging-Production-Syst...
+                 </a>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705808&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="120"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705875&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705875">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705875">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=pbhjpbhj">
+                 pbhjpbhj
+                </a>
+                2 hours ago  |
+                <a href="item?id=4705875">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Start at ~10:20 for the cascading failures.
+                 <p>
+                  Very entertaining IMO. But I would suggest the speaker cut the off-hand ostracism of large groups of people.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705875&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705296&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705296">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705296">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=Trufa">
+                 Trufa
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705296">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I really love when the companies take time to explain their customers what happened specially in such detail.
+                 <p>
+                  It's clearly a very complicated setting, and this type of posts make me trust them more, don't get me wrong, and outage is an outage, but knowing that they are in control and take time to explain shows respect and the correct attitude towards a mistake.
+                  <p>
+                   Good for them!
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705296&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705225&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705225">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705225">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=teraflop">
+                 teraflop
+                </a>
+                10 hours ago  |
+                <a href="item?id=4705225">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 &gt; Multi Availability Zone (Multi-AZ), where two database instances are synchronously operated in two different Availability Zones.
+                 <p>
+                  &gt; The second group of Multi-AZ instances did not failover automatically because the master database instances were disconnected from their standby for a brief time interval immediately before these master database instances’ volumes became stuck. Normally these events are simultaneous. Between the period of time the masters were disconnected from their standbys and the point where volumes became stuck, the masters continued to process transactions without being able to replicate to their standbys.
+                  <p>
+                   Can someone explain this? I thought the entire point of synchronous replication was that the master doesn't acknowledge that a transaction is committed until the data reaches the slave. That's how it's described in the RDS FAQ:
+                   <a href="http://aws.amazon.com/rds/faqs/#36" rel="nofollow">
+                    http://aws.amazon.com/rds/faqs/#36
+                   </a>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705225&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705240&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705240">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705240">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=mcpherrinm">
+                 mcpherrinm
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705240">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 This just sounds like a race condition gone weird.
+                 <p>
+                  I assume from this description that the update protocol looks something like this:
+                  <p>
+                   <pre>
+                    <code>
+                     process-request:
+     Update-local
+     push to sync buddy
+     wait for sync buddy success
+     reply-with-status
+     mark state as synced
+                    </code>
+                   </pre>
+                   If the function does the local update and then gets stuck in the state waiting for the buddy to reply, one could imagine the failover daemon not handling that case very well.  So while the master might not have acknowledged the transaction, the pair might get jammed trying to complete it.
+                   <p>
+                    EBS is a particularily complicated piece of software, and RDS is another layer of complication built on top of that.
+Bugs clearly happen, and it's an unfortunate state of affairs.
+                   </p>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705240&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705607&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705607">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705607">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=redditmigrant">
+                 redditmigrant
+                </a>
+                6 hours ago  |
+                <a href="item?id=4705607">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I think aws uses drbd (
+                 <a href="http://www.drbd.org/" rel="nofollow">
+                  http://www.drbd.org/
+                 </a>
+                 ) for replicating the writes to the standby. Among the replication modes of drbd suggested here:
+                 <a href="http://www.drbd.org/users-guide-emb/s-replication-protocols.html" rel="nofollow">
+                  http://www.drbd.org/users-guide-emb/s-replication-protocols....
+                 </a>
+                 I suspect they probably use B and landed in a state where packets got delivered but werent written on the standby.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705607&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705301&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705301">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705301">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=mrkurt">
+                 mrkurt
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705301">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 AWS sure does put out amazing post mortems. If only they'd make their status page more useful ...
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705301&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705343&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705343">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705343">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=taligent">
+                 taligent
+                </a>
+                8 hours ago  |
+                <a href="item?id=4705343">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 How is the status page not useful ? It's so simple to understand.
+                 <p>
+                  Green if everything is fine. Green if there are intermittent problems. Green if nothing works.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705343&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705779&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705779">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705779">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=seldo">
+                 seldo
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705779">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 And if things are
+                 <i>
+                  really
+                 </i>
+                 broken, green with a little "i" icon next to it.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705779&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705442&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705442">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705442">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=signifiers">
+                 signifiers
+                </a>
+                7 hours ago  |
+                <a href="item?id=4705442">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Too true. Today when Google's App Engine failed hard, they flat out said: "App Engine is currently experiencing serving issues – Python, Java, Go … Oct 26 2012, 07:30 AM-11:59 PM … Current Availability: 55.90%" and showed read/write I/O metrics were spiking through the roof.  Their dashboard clearly labeled the relevant icon as the most severe "Service Interruption".
+                 <p>
+                  I admire that level of transparency.
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705442&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="120"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705458&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705458">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705458">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=kordless">
+                 kordless
+                </a>
+                7 hours ago  |
+                <a href="item?id=4705458">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Yeah, was thinking the same thing while looking at all the cool graphs.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705458&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705981&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705981">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705981">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=davnola">
+                 davnola
+                </a>
+                1 hour ago  |
+                <a href="item?id=4705981">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Haha. I'd love someone to release a greasemonkey/userscript for that status page to make degraded service more obvious.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705981&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705544&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705544">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705544">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=bigiain">
+                 bigiain
+                </a>
+                6 hours ago  |
+                <a href="item?id=4705544">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 You left out "Green if everything is working - except the Chaos Monkey. All systems are working properly, but none of them failing randomly 'for your convenience'"
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705544&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705447&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705447">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705447">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=tonybaroneee">
+                 tonybaroneee
+                </a>
+                7 hours ago  |
+                <a href="item?id=4705447">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Lol, thanks for a good laugh.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705447&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705308&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705308">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705308">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=helper">
+                 helper
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705308">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 &gt; We are already in the process of making a few changes to reduce the interdependency between ELB and EBS to avoid correlated failure in future events and allow ELB recovery even when there are EBS issues within an Availability Zone.
+                 <p>
+                  This is music to my ears. We switched away from ELBs because of this dependency. Hopefully this statement means Amazon is working on completely removing any use of EBS from ELBs.
+                  <p>
+                   We came to the conclusion a year and a half ago that EBS has  had too many cascading failures to be trustworthy for our production systems. We now run everything on ephemeral drives and use Cassandra distributed across multiple AZs and multiple regions for data persistence.
+                   <p>
+                    I highly recommend getting as many servers as you can off EBS.
+                   </p>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705308&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705421&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705421">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705421">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=signifiers">
+                 signifiers
+                </a>
+                8 hours ago  |
+                <a href="item?id=4705421">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I could not agree more, and have had
+                 <i>
+                  zero
+                 </i>
+                 downtime since the fleet-wide reboot last December from any of 20+ instance-backed VMs in US-East.  Joe Stump of SimpleGeo and Sprint.ly and many others have come to the same conclusion.
+                 <p>
+                  While we have a couple of RDS instances, nothing is production critical.  And this: "the root cause of the Multi-AZ [MySql|Oracle|SqlServer] failures we observed during this event will be addressed" only confirms my observations from the RSS history in the dashboard, that in nearly every major EBS-related "service event" (including the ones that happen every few weeks and never get this level of post-mortem), the managed databases, load balancers and config management (beanstalk) services go down too.
+                  <p>
+                   When you move from AWS' basic EC2 IaaS VMs with instance (ephemeral|local) storage to EBS-backed (basically vSAN) storage, your multi-month uptime odds go down considerably. But when you step up to the PaaS of managed DBs, load balancing, dynamo, etc., yes, they offload a ton of management drudge, but it's an order of magnitude more fragile.
+                   <p>
+                    The unpredictability of performance, network contention and stability with EBS, for me, just doesn't outweigh the relatively smaller risk of hardware disk failure I take on from instance-backed nodes.  Yes, I know, disks fail - but EBS disks fail
+                    <i>
+                     a lot
+                    </i>
+                    , and when they do, good luck fighting the herd to spin up more -- or crap, now, even getting web console access to understand what the hell is happening.  That's the irony here - API access (including issuing more IPs!) is "throttled" at precisely the time when you need it most.
+                    <p>
+                     My advice? Instance-backed &gt;= large, and roll your own failover/DR/load balancing.  Go ahead and "plan for failure" - but do it old school: plan for the more likely case of simple h/w failure, not the EBS control plane and everything that depends on it.
+                    </p>
+                   </p>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705421&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705785&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705785">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705785">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=seldo">
+                 seldo
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705785">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Enthusiastically seconded. We stopped using EBS for anything 12 months ago and got through this outage with very little pain (previous AWS incidents had us cleaning up for weeks afterwards).
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705785&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705237&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705237">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705237">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=ndcrandall">
+                 ndcrandall
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705237">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Everytime there is a service outage it makes me feel better about using them in the future. Every outage is actually making the project more reliable since some issuess will only manifest in production. I believe they have a great team that's very knowledgable.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705237&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705269&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705269">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705269">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=blaines">
+                 blaines
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705269">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I don't necessarily agree with your first two sentences, but I definitely agree with the last one. I know they're smart.
+                 <p>
+                  I do have some concerns that they're having too much downtime. If there's one small flaw in the system it seems that the whole thing begins to fail.
+                  <p>
+                   If they fix the problem, and it impacts the larger system in some other unknown way, a different equally crippling issue could present itself in the future. I'd like to be sure they're putting a huge effort into making sure these problems don't happen, and I don't have those assurances at the moment.
+                   <p>
+                    First things first, a better status dashboard that actually reflects how issues impact customers is needed. I'd rather have everything working fine and the status be 'red' than have servers down, support tickets, calls, emails, etc and see a 'green' on the dashboard.
+                   </p>
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705269&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705329&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705329">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705329">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=sokoloff">
+                 sokoloff
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705329">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 <i>
+                  If there's one small flaw in the system it seems that the whole thing begins to fail.
+                 </i>
+                 <p>
+                  I wonder if there is selection bias underlying that judgment? Reading all of Amazon's post-mortems of big events, it does seem that the whole thing is fragile. What I suspect is more likely true is that AWS suffers thousands of small failures every month and most are contained as designed, with no(or minuscule) customer impact. It's the ones that turn into highly visible failures that we read about.
+                  <p>
+                   That said, I agree with you that EBS in particular seems to have more downtime than I'd expect. (And that other services like ELB depends on it makes it cascade in a way that's hard to design highly-available systems.)
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705329&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="120"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705441&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705441">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705441">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=Firehed">
+                 Firehed
+                </a>
+                7 hours ago  |
+                <a href="item?id=4705441">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 &gt; What I suspect is more likely true is that AWS suffers thousands of small failures every month and most are contained as designed, with no(or minuscule) customer impact.
+                 <p>
+                  Isn't that the whole point of moving to The Cloud? There's supposed to be some magical system in place such that hardware failures are routed around and don't interrupt service. Of course you can roll this yourself with your own hardware, but this is done for you.
+                  <p>
+                   It should be no small surprise that a system complicated enough to appear magical has some crazy complexity behind the scenes, and accidental dependencies can result in catastrophic failure.
+                  </p>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705441&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705721&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705721">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705721">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=mbesto">
+                 mbesto
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705721">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Do you think maybe this is just a focusing illusion?[1] And therefore the utility you associate with the service is not correctly attributed.
+                 <p>
+                  [1]
+                  <a href="http://en.wikipedia.org/wiki/Anchoring" rel="nofollow">
+                   http://en.wikipedia.org/wiki/Anchoring
+                  </a>
+                 </p>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705721&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705289&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705289">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705289">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=papercruncher">
+                 papercruncher
+                </a>
+                9 hours ago  |
+                <a href="item?id=4705289">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 I know there are lots of smart people working there but just look at the sheer amount of AWS offerings. Amazon certainly gets credit for quickly putting out new features and services but it makes me wonder if their pace has resulted in way too many moving parts with an intractable number of dependencies.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705289&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705975&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705975">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705975">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=nolok">
+                 nolok
+                </a>
+                1 hour ago  |
+                <a href="item?id=4705975">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Actually, it always seems to come down to EBS failure, which is an "old" feature.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705975&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705768&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705768">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705768">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=krosaen">
+                 krosaen
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705768">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Bugs happen, and the effects of cascading failures are very hard to anticipate. But it seems like the aws team hadn't fully tested the effects of an EBS outage, which seems like it could have uncovered the rdms multi availability zone failover bug and perhaps the elbs failover bug ahead of time.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705768&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705436&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705436">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705436">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=michaelkscott">
+                 michaelkscott
+                </a>
+                8 hours ago  |
+                <a href="item?id=4705436">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 For anyone interested, here are the comments on the App engine outage:
+                 <a href="http://news.ycombinator.com/item?id=4704973" rel="nofollow">
+                  http://news.ycombinator.com/item?id=4704973
+                 </a>
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705436&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="0"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705198&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705198">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705198">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=filvdg">
+                 filvdg
+                </a>
+                10 hours ago  |
+                <a href="item?id=4705198">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Everything is a Freaking DNS problem :)
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705198&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="40"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705377&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705377">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705377">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=jlgreco">
+                 jlgreco
+                </a>
+                8 hours ago  |
+                <a href="item?id=4705377">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 Well, naming things
+                 <i>
+                  is
+                 </i>
+                 one of the 2 hard problems in computer science. ;)
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705377&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705793&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705793">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705793">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=erichocean">
+                 erichocean
+                </a>
+                4 hours ago  |
+                <a href="item?id=4705793">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 "There are only two hard problems in computer science: cache invalidation, naming things, and off-by-one errors."
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705793&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <table border="0">
+            <tr>
+             <td>
+              <img height="1" src="http://ycombinator.com/images/s.gif" width="80"/>
+             </td>
+             <td valign="top">
+              <center>
+               <a href="vote?for=4705478&amp;dir=up&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37" id="up_4705478">
+                <img border="0" hspace="2" src="http://ycombinator.com/images/grayarrow.gif" vspace="3"/>
+               </a>
+               <span id="down_4705478">
+               </span>
+              </center>
+             </td>
+             <td class="default">
+              <div style="margin-top:2px; margin-bottom:-10px; ">
+               <span class="comhead">
+                <a href="user?id=Evbn">
+                 Evbn
+                </a>
+                7 hours ago  |
+                <a href="item?id=4705478">
+                 link
+                </a>
+               </span>
+              </div>
+              <br>
+               <span class="comment">
+                <font color="#000000">
+                 DNS is the other problem too.
+                </font>
+               </span>
+               <p>
+                <font size="1">
+                 <u>
+                  <a href="reply?id=4705478&amp;whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37">
+                   reply
+                  </a>
+                 </u>
+                </font>
+               </p>
+              </br>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+        </table>
+        <br>
+         <br>
+         </br>
+        </br>
+       </br>
+      </br>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <img height="10" src="http://ycombinator.com/images/s.gif" width="0">
+       <table cellpadding="1" cellspacing="0" width="100%">
+        <tr>
+         <td bgcolor="#ff6600">
+         </td>
+        </tr>
+       </table>
+       <br>
+        <center>
+         <span class="yclinks">
+          <a href="lists">
+           Lists
+          </a>
+          |
+          <a href="rss">
+           RSS
+          </a>
+          |
+          <a href="http://ycombinator.com/bookmarklet.html">
+           Bookmarklet
+          </a>
+          |
+          <a href="http://ycombinator.com/newsguidelines.html">
+           Guidelines
+          </a>
+          |
+          <a href="http://ycombinator.com/newsfaq.html">
+           FAQ
+          </a>
+          |
+          <a href="http://ycombinator.com/newsnews.html">
+           News News
+          </a>
+          |
+          <a href="item?id=363">
+           Feature Requests
+          </a>
+          |
+          <a href="http://ycombinator.com">
+           Y Combinator
+          </a>
+          |
+          <a href="http://ycombinator.com/apply.html">
+           Apply
+          </a>
+          |
+          <a href="http://ycombinator.com/lib.html">
+           Library
+          </a>
+         </span>
+         <br>
+          <br>
+           <form action="http://www.hnsearch.com/search#request/all" method="get">
+            Search:
+            <input name="q" size="17" type="text" value=""/>
+           </form>
+           <br>
+           </br>
+          </br>
+         </br>
+        </center>
+       </br>
+      </img>
+     </td>
+    </tr>
+   </table>
+  </center>
+ </body>
+</html>
