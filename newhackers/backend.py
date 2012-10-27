@@ -203,6 +203,9 @@ def get_token(user, password):
     Raises a ClientError if authentication failed.
 
     """
+    # XXX this is very dangerous. I has the potential to get us banned
+    # and I don't think there's any way to rate limit it for multiple
+    # users.
     r = requests.get(HN_LOGIN)
     soup = BeautifulSoup(r.content)
     try:
