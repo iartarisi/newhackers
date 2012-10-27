@@ -135,7 +135,7 @@ def _parse_links(soup):
     titles = soup.find_all("td", "title", valign=False)
     more = _extract_more(titles.pop(-1))
 
-    stories = [{'title': title.text.strip(),
+    stories = [{'title': title.text.strip().split('\n')[0],
                 'link': title.find("a")["href"]}
                for title in titles]
 
