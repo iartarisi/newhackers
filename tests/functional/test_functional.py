@@ -29,3 +29,21 @@ class FunctionalTest(unittest.TestCase):
         r_data = json.loads(resp.data)
         self.assertIn('error', r_data)
         self.assertIn('Authentication failed', r_data['error'])
+
+    def test_front_page(self):
+        resp = self.app.get('/stories/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content_type, 'application/json')
+        r_data = json.loads(resp.data)
+        self.assertItemsEqual(['more', 'stories'], r_data)
+        self.assertEqual(len(r_data['stories']), backend.STORIES_PER_PAGE)
+        self.assertItemsEqual(
+            ['time', 'comments', 'score', 'author', 'title', 'link'],
+            r_data['stories'][0])
+
+    def test_not_found_page(self):
+        resp = self.app.get('/stories/NOT_FOUND')
+        self.assertEqual(resp.status_code, 404)
+        self.assertEqual(resp.content_type, 'application/json')
+        r_data = json.loads(resp.data)
+        self.assertEqual(r_data, {'error': '404: Not Found'})

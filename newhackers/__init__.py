@@ -22,7 +22,7 @@ def stories(page=None):
         page = 'ask'
     elif request.url_rule.rule in ('/stories/', '/stories'):
         page = ''
-        
+
     try:
         stories = backend.get_stories(page)
     except backend.NotFound:
