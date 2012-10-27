@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import time
 import unittest
 
+from bs4 import BeautifulSoup
 import mock
 import redis
 
@@ -141,3 +142,6 @@ class ParseStoriesTest(unittest.TestCase):
         self.assertIsNone(self.stories[19]['author'])
         # Ask
         self.assertEqual(self.stories[18]['author'], "DonnyV")
+
+    def test_parse_subtexts_no_comments(self):
+        self.assertIsNone(backend._parse_subtexts(BeautifulSoup()))

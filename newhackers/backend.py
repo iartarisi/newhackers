@@ -116,10 +116,41 @@ def parse_stories(page):
                 'link': title.find("a")["href"]}
                for title in titles]
 
+    subtexts = _parse_subtexts(soup)
+    assert len(subtexts) == config.STORIES_PER_PAGE
+
+    for story, subtext in zip(stories, subtexts):
+        story.update(subtext)
+    
+    return dict(stories=stories, more=more)
+
+
+def _parse_subtexts(soup):
+    """Returns a list of dictionaries with stories metadata
+
+    Returns e.g.
+    
+     [{'comments': 1337,
+       'score': 42,
+       'time': 1350901062.0,
+       'author': 'woz'},
+
+      {'time': 1351333328.0,
+       'score': None,
+       'author': None,
+       'comments': None},
+      ...]
+
+    Returns None if no comments were found
+
+    """
     # Some other data about each submission is stored in <td
     # class="subtext"> elements
     metadata = soup.find_all("td", "subtext")
-    assert len(metadata) == config.STORIES_PER_PAGE
+    if not metadata:
+        return None
+
+    stories = [{} for i in range(len(metadata))]
 
     # The content of the <td class="subtext"> differs. There are three classes:
     # 1. normal stories with all the metadata (Ask HNs included)
@@ -152,7 +183,7 @@ def parse_stories(page):
             stories[s]['score'] = None
             stories[s]['author'] = None
 
-    return dict(stories=stories, more=more)
+    return stories
 
 
 def _extract_more(more_soup):
