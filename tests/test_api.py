@@ -5,7 +5,7 @@ import mock
 import redis
 from werkzeug.exceptions import NotFound
 
-from newhackers import app, backend
+from newhackers import app, backend, token
 from fixtures import PAGE_ID, STORIES, STORIES_JSON
 
 
@@ -64,7 +64,7 @@ class JSONApiTest(unittest.TestCase):
             get_stories.assert_called_with('not-found')
             
     def test_get_token(self):
-        with mock.patch.object(backend, "get_token", return_value="token123"
+        with mock.patch.object(token, "get_token", return_value="token123"
                                ) as get_token:
             response = self.app.post('/get_token',
                                      data={'user': 'test_user',
@@ -75,8 +75,8 @@ class JSONApiTest(unittest.TestCase):
             get_token.assert_called_with('test_user', 'test_pass')
             
     def test_get_token_403(self):
-        with mock.patch.object(backend, "get_token",
-                               side_effect=backend.ClientError('Evil Error')
+        with mock.patch.object(token, "get_token",
+                               side_effect=exceptions.ClientError('Evil Error')
                                ) as get_token:
             response = self.app.post('/get_token',
                                      data={'user': 'test_user',
@@ -87,8 +87,8 @@ class JSONApiTest(unittest.TestCase):
                              {'error': 'Evil Error'})
 
     def test_get_token_500(self):
-        with mock.patch.object(backend, "get_token",
-                               side_effect=backend.ServerError('Evil Error')
+        with mock.patch.object(token, "get_token",
+                               side_effect=exceptions.ServerError('Evil Error')
                                ) as get_token:
             response = self.app.post('/get_token',
                                      data={'user': 'test_user',

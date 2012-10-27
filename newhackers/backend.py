@@ -9,20 +9,11 @@ from parsedatetime import parsedatetime as pdt
 import redis
 import requests
 
-
-CACHE_INTERVAL = 60  # seconds
-HN = "https://news.ycombinator.com/"
-HN_LOGIN = HN + "newslogin?whence=news"
-HN_LOGIN_POST = HN + 'y'
-STORIES_PER_PAGE = 30
+from newhackers import config
+from newhackers.exceptions import ClientError, ServerError, NotFound
 
 cal = pdt.Calendar()
 rdb = redis.Redis(db=8)
-
-
-class NotFound(Exception): pass
-class ClientError(Exception): pass
-class ServerError(Exception): pass
 
 
 def too_old(key):
@@ -43,7 +34,7 @@ def too_old(key):
     else:
         age = datetime.now() - datetime.fromtimestamp(updated)
 
-    allowed_age = timedelta(seconds=CACHE_INTERVAL)
+    allowed_age = timedelta(seconds=config.CACHE_INTERVAL)
     if age < allowed_age:
         return False
     else:
@@ -65,8 +56,8 @@ def update_page(db_key, url):
     doesn't even have sensible status codes)
 
     """
-    res = requests.get(HN + url)
-    # XXX HN is ignorant of HTTP status codes
+    res = requests.get(config.HN + url)
+    # HN is ignorant of HTTP status codes
     # all errors seem to be plain text sentences
     if res.text in ['No such item.', 'Unknown.']:
         raise NotFound
@@ -145,7 +136,7 @@ def parse_stories(page):
     titles = soup.find_all("td", "title", valign=False)
     more = _extract_more(titles.pop(-1))
 
-    assert len(titles) == STORIES_PER_PAGE
+    assert len(titles) == config.STORIES_PER_PAGE
 
     stories = [{'title': title.text.strip(),
                 'link': title.find("a")["href"]}
@@ -154,7 +145,7 @@ def parse_stories(page):
     # Some other data about each submission is stored in <td
     # class="subtext"> elements
     metadata = soup.find_all("td", "subtext")
-    assert len(metadata) == STORIES_PER_PAGE
+    assert len(metadata) == config.STORIES_PER_PAGE
 
     # The content of the <td class="subtext"> differs. There are three classes:
     # 1. normal stories with all the metadata (Ask HNs included)
@@ -190,46 +181,10 @@ def parse_stories(page):
     return dict(stories=stories, more=more)
 
 
-def get_token(user, password):
-    """Login on HN and return a user token
-
-    :user: username string
-    :password: password string
-
-    Returns a user token string which needs to be given as a parameter
-    for API methods which require a user to be signed in such as
-    commenting or voting.
-
-    Raises a ClientError if authentication failed.
-
-    """
-    # XXX this is very dangerous. I has the potential to get us banned
-    # and I don't think there's any way to rate limit it for multiple
-    # users.
-    r = requests.get(HN_LOGIN)
-    soup = BeautifulSoup(r.content)
-    try:
-        fnid = soup.find('input', attrs=dict(name='fnid'))['value']
-    except TypeError:
-        logging.error("Failed parsing response from %s.\n%s"
-                      % (HN_LOGIN, r.content))
-        raise ServerError("Authentication failed. Unknown server error.")
-
-    r = requests.post(HN_LOGIN_POST,
-                      data={'fnid': fnid, 'u': user, 'p': password})
-
-    # XXX HN returns 200 on failed authentication, so we have to EAFP
-    try:
-        user_token = r.cookies['user']
-    except KeyError:
-        raise ClientError("Authentication failed. Bad user/password.")
-    else:
-        return user_token
-
-
 def _decode_time(timestamp):
     """Decode time from a relative timestamp to a localtime float"""
     return time.mktime(cal.parse(timestamp)[0])
+
 
 def _extract_more(more_soup):
     """Extract a page identifier from the <a> element in a BeautifulSoup"""

@@ -18,6 +18,7 @@ def make_json_app(*args, **kwargs):
 
     return app
 
+
 def valid_url(url):
     """Returns True if the :url: string is a valid URL, False otherwise"""
     # This code was copied from the Django project's django.core.validators

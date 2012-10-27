@@ -5,7 +5,7 @@ import unittest
 import mock
 import redis
 
-from newhackers import backend
+from newhackers import backend, config
 from newhackers.utils import valid_url
 from fixtures import FRONT_PAGE, PAGE_ID, STORIES, STORIES_JSON
 
@@ -24,7 +24,7 @@ class ParseStoriesTest(unittest.TestCase):
             self.stories, self.more = backend.parse_stories(f.read()).values()
             
     def test_parse_stories_right_length(self):
-        self.assertEqual(len(self.stories), backend.STORIES_PER_PAGE)
+        self.assertEqual(len(self.stories), config.STORIES_PER_PAGE)
 
     def test_parse_stories_more_id(self):
         self.assertEqual(self.more, STORIES['more'])
@@ -33,11 +33,11 @@ class ParseStoriesTest(unittest.TestCase):
         diff_titles = set(d['title'] for d in self.stories)
         # NB Stories aren't guaranteed to have different names in
         # real-life HN, but we got a lucky fixture
-        self.assertEqual(len(diff_titles), backend.STORIES_PER_PAGE)
+        self.assertEqual(len(diff_titles), config.STORIES_PER_PAGE)
 
     def test_parse_stories_urls_are_different(self):
         diff_urls = set(s['link'] for s in self.stories)
-        self.assertEqual(len(diff_urls), backend.STORIES_PER_PAGE)
+        self.assertEqual(len(diff_urls), config.STORIES_PER_PAGE)
 
     def test_parse_stories_urls_are_valid(self):
         for story in self.stories:
@@ -107,7 +107,7 @@ class BackendTest(unittest.TestCase):
         self.rdb.flushdb()
 
     def test_time_too_old(self):
-        with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
+        with mock.patch.object(config, 'CACHE_INTERVAL', 30):
             self.rdb.set("my-item/updated", seconds_old(30))
             self.assertTrue(backend.too_old("my-item"))
 
@@ -142,51 +142,10 @@ class BackendTest(unittest.TestCase):
 
         self.rdb.set("/pages/%s/updated" % PAGE_ID, seconds_old(31))
         
-        with mock.patch.object(backend, 'CACHE_INTERVAL', 30):
+        with mock.patch.object(config, 'CACHE_INTERVAL', 30):
             with mock.patch.object(backend, 'update_page') as update_page:
                 self.assertEqual(STORIES_JSON, backend.get_stories(PAGE_ID))
                 update_page.assert_called_with('/pages/' + PAGE_ID, PAGE_ID)
-
-    def test_get_token(self):
-        FNID = "foo42"
-        mock_get = mock.Mock(return_value=mock.Mock(
-                content='<input name="fnid" value="%s">foobar</input>' % FNID))
-        mock_post = mock.Mock(return_value=mock.Mock(
-                cookies={'user': 'user_token'}))
-
-        with mock.patch.object(backend.requests, "get", mock_get) as get:
-            with mock.patch.object(backend.requests, "post", mock_post) as post:
-                token = backend.get_token("test_user", "test_pass")
-                get.assert_called_with(backend.HN_LOGIN)
-                post.assert_called_with(backend.HN_LOGIN_POST,
-                                        data={'u': "test_user",
-                                              'p': "test_pass",
-                                              'fnid': "foo42"})
-                self.assertEqual(token, "user_token")
-
-    def test_get_token_failed_get(self):
-        mock_get = mock.Mock(return_value=mock.Mock(
-                content='blueberries'))
-
-        with mock.patch.object(backend.logging, "error") as log_error:
-            with mock.patch.object(backend.requests, "get", mock_get) as get:
-                self.assertRaises(backend.ServerError,
-                                  backend.get_token, "test_user", "test_pass")
-                self.assertIn("Failed parsing response",
-                              log_error.call_args[0][0])
-                self.assertIn("blueberries", log_error.call_args[0][0])
-                
-    def test_post_token_failed_post(self):
-        FNID = "foo42"
-        mock_get = mock.Mock(return_value=mock.Mock(
-                content='<input name="fnid" value="%s">foobar</input>' % FNID))
-        mock_post = mock.Mock(return_value=mock.Mock(cookies={}))
-
-        with mock.patch.object(backend.requests, "get", mock_get) as get:
-            with mock.patch.object(backend.requests, "post", mock_post) as post:
-                with self.assertRaisesRegexp(
-                    backend.ClientError, ".*Bad user/password.*") as exc:
-                    backend.get_token("bad_user", "bad_pass")
 
     def test_update_page_not_found(self):
         mock_get = mock.Mock(return_value=mock.Mock(
@@ -194,7 +153,7 @@ class BackendTest(unittest.TestCase):
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             self.assertRaises(backend.NotFound, backend.update_page,
                               'test_key', 'test_url')
-            get.assert_called_with(backend.HN + 'test_url')
+            get.assert_called_with(config.HN + 'test_url')
 
     def test_update_page_server_error(self):
         mock_get = mock.Mock(return_value=mock.Mock(
@@ -202,7 +161,7 @@ class BackendTest(unittest.TestCase):
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             self.assertRaises(backend.ServerError, backend.update_page,
                               'test_key', 'test_url')
-            get.assert_called_with(backend.HN + 'test_url')
+            get.assert_called_with(config.HN + 'test_url')
 
     def test_update_page(self):
         RESPONSE_TEXT = '<html>good stories</html>'
@@ -212,6 +171,6 @@ class BackendTest(unittest.TestCase):
             with mock.patch.object(backend, "parse_stories",
                                    mock.Mock(return_value=STORIES)) as parse:
                 stories_json = backend.update_page("test_key", "test_url")
-                get.assert_called_with(backend.HN + "test_url")
+                get.assert_called_with(config.HN + "test_url")
                 parse.assert_called_with(RESPONSE_TEXT)
                 self.assertEqual(self.rdb.get("test_key"), STORIES_JSON)
