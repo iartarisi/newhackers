@@ -2,7 +2,7 @@ import logging
 
 from flask import abort, jsonify, request
 
-from newhackers import app, auth, exceptions, stories
+from newhackers import app, auth, controller, exceptions
 
 
 @app.route("/stories")
@@ -19,7 +19,7 @@ def get_stories(page=None):
         page = ''
 
     try:
-        resp = stories.get_stories(page)
+        resp = controller.get_stories(page)
     except exceptions.NotFound:
         abort(404)
 
