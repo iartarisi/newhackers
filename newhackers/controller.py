@@ -18,6 +18,19 @@ def get_stories(page):
     return _get_cache('/pages/' + page, page)
 
 
+def get_comments(item):
+    """Return a page of comments
+
+    :item: int - the identifier of a comments page on HN
+
+    Returns information about a submission and all the comments attached
+    to it.
+
+    """
+    item = str(item)
+    return _get_cache('/comments/' + item, 'item?id=' + item)
+
+
 def _get_cache(db_key, page):
     """Retrieves an item from HN with caching
 

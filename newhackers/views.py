@@ -26,6 +26,17 @@ def get_stories(page=None):
     return app.response_class(resp, mimetype='application/json')
 
 
+@app.route("/comments/<int:item_id>")
+def get_comments(item_id):
+    """Return story with its comments"""
+    try:
+        resp = controller.get_comments(item_id)
+    except exceptions.NotFound:
+        abort(404)
+
+    return app.response_class(resp, mimetype='application/json')
+    
+
 @app.route("/get_token", methods=["POST"])
 def get_token():
     """Login on HN and return a user token

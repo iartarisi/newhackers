@@ -1,14 +1,14 @@
 import unittest
 
 from newhackers import backend
-from fixtures import COMMENTS, NO_COMMENTS, ASK_COMMENTS
+from fixtures import COMMENTS_PAGE, NO_COMMENTS, ASK_COMMENTS
 
 
 class CommentsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        with open(COMMENTS) as f:
+        with open(COMMENTS_PAGE) as f:
             self.comments = backend.parse_comments(f.read())
         with open(NO_COMMENTS) as f:
             self.no_comments = backend.parse_comments(f.read())

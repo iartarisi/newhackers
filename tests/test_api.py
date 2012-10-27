@@ -5,8 +5,8 @@ import mock
 import redis
 from werkzeug.exceptions import NotFound
 
-from fixtures import PAGE_ID, STORIES_JSON
 from newhackers import app, auth, backend, controller, exceptions
+from fixtures import COMMENTS_JSON, ITEM_ID, PAGE_ID, STORIES_JSON
 
 
 class JSONApiTest(unittest.TestCase):
@@ -62,6 +62,15 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.status_code, 404)
             self.assertEqual(response.content_type, 'application/json')
             get_stories.assert_called_with('not-found')
+
+    def test_comments(self):
+        with mock.patch.object(controller, "get_comments",
+                               return_value=COMMENTS_JSON) as get_comments:
+            response = self.app.get('/comments/' + str(ITEM_ID))
+            get_comments.assert_called_with(ITEM_ID)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.content_type, 'application/json')
+            self.assertEqual(response.data, COMMENTS_JSON)
 
     def test_get_token(self):
         with mock.patch.object(auth, "get_token", return_value="token123"
