@@ -15,32 +15,36 @@ class StoriesTest(unittest.TestCase):
     def tearDown(self):
         self.rdb.flushdb()
 
-    def test_get_stories_first_page_cached(self):
-        self.rdb.set("/pages/front_page", STORIES_JSON)
+    def test_cache_first_page_cached(self):
+        self.rdb.set("test_key", STORIES_JSON)
 
         with mock.patch.object(controller, 'update_page') as update_page:
-            self.assertEqual(STORIES_JSON, controller.get_stories('front_page'))
+            self.assertEqual(STORIES_JSON,
+                             controller._get_cache('test_key', 'test_item'))
             update_page.assert_not_called()
 
-    def test_get_stories_not_cached(self):
+    def test_cache_not_cached(self):
         with mock.patch.object(controller, 'update_page', return_value='stories'
                                ) as update_page:
-            self.assertEqual('stories', controller.get_stories('front_page'))
-            update_page.assert_called_with('/pages/front_page', 'front_page')
+            self.assertEqual('stories',
+                             controller._get_cache('test_key', 'test_item'))
+            update_page.assert_called_with('test_key', 'test_item')
 
-    def test_get_stories_other_page_cached(self):
-        self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
+    def test_cache_other_page_cached(self):
+        self.rdb.set("test_key", STORIES_JSON)
 
         with mock.patch.object(controller, 'update_page') as update_page:
             update_page.assert_not_called()
-            self.assertEqual(STORIES_JSON, controller.get_stories(PAGE_ID))
+            self.assertEqual(STORIES_JSON,
+                             controller._get_cache('test_key', 'test_item'))
 
-    def test_get_stories_cached_too_old_gets_update(self):
-        self.rdb.set("/pages/" + PAGE_ID, STORIES_JSON)
+    def test_cache_cached_too_old_gets_update(self):
+        self.rdb.set('test_key', STORIES_JSON)
 
-        self.rdb.set("/pages/%s/updated" % PAGE_ID, seconds_old(31))
+        self.rdb.set("/test_key/updated", seconds_old(31))
 
         with mock.patch.object(config, 'CACHE_INTERVAL', 30):
             with mock.patch.object(controller, 'update_page') as update_page:
-                self.assertEqual(STORIES_JSON, controller.get_stories(PAGE_ID))
-                update_page.assert_called_with('/pages/' + PAGE_ID, PAGE_ID)
+                self.assertEqual(STORIES_JSON,
+                                 controller._get_cache('test_key', 'test_item'))
+                update_page.assert_called_with('test_key', 'test_item')
