@@ -176,56 +176,7 @@ function vote(node) {
               <br>
                <span class="comment">
                 <font color="#000000">
-                 I dunno about you, but I could use a TL;DR for this:
-                 <p>
-                  1. They fucked up an internal DNS change and didn't notice
-                  <p>
-                   2. Internal systems on EBS hosts piled up with messages trying to get to the non-existent domain
-                   <p>
-                    3. Eventually the messages used up all the memory on the EBS hosts, and thousands of EBS hosts began to die simultaneously
-                    <p>
-                     4. Meanwhile, panicked operators trying to slow down this tidal wave hit the Throttle Everything button
-                     <p>
-                      5. The throttling was so aggressive the even normal levels of operation became impossible
-                      <p>
-                       6. The incident was a single AZ, but the throttling was across the whole region, which spread the pain further
-                       <p>
-                        [Everybody who got throttled gets a 3-hour refund]
-                        <p>
-                         7. Any single-AZ RDS instance on a dead EBS host was fucked
-                         <p>
-                          8.
-                          <i>
-                           Multi
-                          </i>
-                          -AZ RDS instances ran into two separate bugs, and either became stuck or hit a replication race condition and shut down
-                          <p>
-                           [Everybody whose multi-AZ RDS didn't fail over gets 10 days free credit]
-                           <p>
-                            9. Single-AZ ELB instances in the broken AZ failed because they use EBS too
-                            <p>
-                             10. Because everybody was freaking out and trying to fix their ELBs, the ELB service ran out of IP addresses and locked up
-                             <p>
-                              11. Multi-AZ ELB instances took too long to notice EBS was broken and then hit a bug and didn't fail over properly anyway
-                              <p>
-                               [ELB users get no refund, which seems harsh]
-                               <p>
-                                For those keeping score, that's 1 human error, 2 dependency chains, 3 design flaws, 3 instances of inadequate monitoring, and 5 brand-new internal bugs. From the length and groveling tone of the report, I can only assume that a big chunk of customers are very, VERY angry at them.
-                               </p>
-                              </p>
-                             </p>
-                            </p>
-                           </p>
-                          </p>
-                         </p>
-                        </p>
-                       </p>
-                      </p>
-                     </p>
-                    </p>
-                   </p>
-                  </p>
-                 </p>
+                  TEST! TEST! TEST!
                 </font>
                </span>
                <p>
