@@ -72,6 +72,14 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.content_type, 'application/json')
             self.assertEqual(response.data, COMMENTS_JSON)
 
+    def test_comments_404(self):
+        with mock.patch.object(controller, "get_comments",
+                               side_effect=exceptions.NotFound
+                               ) as get_comments:
+            response = self.app.get('/comments/404')
+            self.assertEqual(response.status_code, 404)
+            get_comments.assert_called_with(404)
+
     def test_get_token(self):
         with mock.patch.object(auth, "get_token", return_value="token123"
                                ) as get_token:
