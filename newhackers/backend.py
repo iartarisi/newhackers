@@ -101,20 +101,8 @@ def parse_stories(page):
     """
     soup = BeautifulSoup(page)
 
-    # There are STORIES_PER_PAGE HN Stories per page
-    # each story link is divided into two <td>s:
-    # - the number of the story (first story on the first page is 1.)
-    # - the title and link of the story
-    # The title and the link don't have a valign attribute
-    # Finally there is a 'More' link to the next page of stories.
-    titles = soup.find_all("td", "title", valign=False)
-    more = _extract_more(titles.pop(-1))
-
-    assert len(titles) == config.STORIES_PER_PAGE
-
-    stories = [{'title': title.text.strip(),
-                'link': title.find("a")["href"]}
-               for title in titles]
+    more, stories = _parse_links(soup)
+    assert len(stories) == config.STORIES_PER_PAGE
 
     subtexts = _parse_subtexts(soup)
     assert len(subtexts) == config.STORIES_PER_PAGE
@@ -123,6 +111,35 @@ def parse_stories(page):
         story.update(subtext)
     
     return dict(stories=stories, more=more)
+
+
+def _parse_links(soup):
+    """Return a more link and a list of title/link dicts
+
+    Returns e.g.
+
+    ('RDXC3fdF',
+     [{'title': "I sooo don't like Apple anymore",
+       'link': "http://iwoz.woo"},
+      {'title': "Work for my startup for free",
+       'link': "item?id=1111"}
+       ...]
+    )
+
+    """
+    # each story link is divided into two <td>s:
+    # - the number of the story (first story on the first page is 1.)
+    # - the title and link of the story
+    # The title and the link don't have a valign attribute
+    # Finally there is a 'More' link to the next page of stories.
+    titles = soup.find_all("td", "title", valign=False)
+    more = _extract_more(titles.pop(-1))
+
+    stories = [{'title': title.text.strip(),
+                'link': title.find("a")["href"]}
+               for title in titles]
+
+    return more, stories
 
 
 def _parse_subtexts(soup):
