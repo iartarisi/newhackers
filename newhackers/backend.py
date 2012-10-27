@@ -55,7 +55,7 @@ def update_page(db_key, url):
     res = requests.get(config.HN + url)
     # HN is ignorant of HTTP status codes
     # all errors seem to be plain text sentences
-    if res.text in ['No such item.', 'Unknown.']:
+    if res.text in ['No such item.', 'Unknown.', 'Unknown or expired link.']:
         raise NotFound
 
     if not res.text.startswith("<html>"):
