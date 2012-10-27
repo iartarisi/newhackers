@@ -15,7 +15,18 @@ def get_stories(page):
     Raises NotFound exception if the page was not found.
 
     """
-    db_key = '/pages/' + page
+    return _get_cache('/pages/' + page, page)
+
+
+def _get_cache(db_key, page):
+    """Retrieves an item from HN with caching
+
+    :db_key: string - the database key where the item is stored
+    :page: string - the path after the HN root from where the item is downloaded
+
+    Returns a JSON document representing the resource.
+
+    """
     try:
         stories = rdb[db_key]
     except KeyError:
