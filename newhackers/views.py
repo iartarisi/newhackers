@@ -2,7 +2,7 @@ import logging
 
 from flask import abort, jsonify, request
 
-from newhackers import app, exceptions, token, stories
+from newhackers import app, auth, exceptions, stories
 
 
 @app.route("/stories")
@@ -42,8 +42,8 @@ def get_token():
 
     """
     try:
-        tok = token.get_token(request.form['user'], request.form['password'])
-        return jsonify(token=tok)
+        token = auth.get_token(request.form['user'], request.form['password'])
+        return jsonify(token=token)
     except exceptions.ClientError as e:
         resp = jsonify(error=e.message)
         resp.status_code = 403

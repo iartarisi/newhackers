@@ -3,12 +3,12 @@ import unittest
 import mock
 import redis
 
-from newhackers import config, token
+from newhackers import auth, config
 
 
 class TokenTest(unittest.TestCase):
     def setUp(self):
-        self.rdb = token.rdb = redis.Redis(db=13)
+        self.rdb = auth.rdb = redis.Redis(db=13)
 
     def tearDown(self):
         self.rdb.flushdb()
@@ -20,9 +20,9 @@ class TokenTest(unittest.TestCase):
         mock_post = mock.Mock(return_value=mock.Mock(
                 cookies={'user': 'user_token'}))
 
-        with mock.patch.object(token.requests, "get", mock_get) as get:
-            with mock.patch.object(token.requests, "post", mock_post) as post:
-                tok = token.get_token("test_user", "test_pass")
+        with mock.patch.object(auth.requests, "get", mock_get) as get:
+            with mock.patch.object(auth.requests, "post", mock_post) as post:
+                tok = auth.get_token("test_user", "test_pass")
                 get.assert_called_with(config.HN_LOGIN)
                 post.assert_called_with(config.HN_LOGIN_POST,
                                         data={'u': "test_user",
@@ -34,10 +34,10 @@ class TokenTest(unittest.TestCase):
         mock_get = mock.Mock(return_value=mock.Mock(
                 content='blueberries'))
 
-        with mock.patch.object(token.logging, "error") as log_error:
-            with mock.patch.object(token.requests, "get", mock_get) as get:
-                self.assertRaises(token.ServerError,
-                                  token.get_token, "test_user", "test_pass")
+        with mock.patch.object(auth.logging, "error") as log_error:
+            with mock.patch.object(auth.requests, "get", mock_get) as get:
+                self.assertRaises(auth.ServerError,
+                                  auth.get_token, "test_user", "test_pass")
                 self.assertIn("Failed parsing response",
                               log_error.call_args[0][0])
                 self.assertIn("blueberries", log_error.call_args[0][2])
@@ -48,8 +48,8 @@ class TokenTest(unittest.TestCase):
                 content='<input name="fnid" value="%s">foobar</input>' % FNID))
         mock_post = mock.Mock(return_value=mock.Mock(cookies={}))
 
-        with mock.patch.object(token.requests, "get", mock_get) as get:
-            with mock.patch.object(token.requests, "post", mock_post) as post:
-                with self.assertRaisesRegexp(token.ClientError,
+        with mock.patch.object(auth.requests, "get", mock_get) as get:
+            with mock.patch.object(auth.requests, "post", mock_post) as post:
+                with self.assertRaisesRegexp(auth.ClientError,
                                              ".*Bad user/password.*") as exc:
-                    token.get_token("bad_user", "bad_pass")
+                    auth.get_token("bad_user", "bad_pass")
