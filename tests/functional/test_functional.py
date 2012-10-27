@@ -62,3 +62,15 @@ class FunctionalTest(unittest.TestCase):
         self.assertItemsEqual(
             ['time', 'comments_no', 'score', 'author', 'title', 'link'],
             r_data['stories'][0])
+
+    def test_comments(self):
+        resp = self.app.get('/comments/4706103')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.content_type, 'application/json')
+        r_data = json.loads(resp.data)
+        self.assertItemsEqual(
+            ['title', 'link', 'score', 'author', 'time',
+             'comments_no', 'comments'],
+            r_data)
+        for comment in r_data['comments']:
+            self.assertItemsEqual(['author', 'body', 'link', 'time'], comment)
