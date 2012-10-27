@@ -41,7 +41,7 @@ class TokenTest(unittest.TestCase):
                 self.assertIn("Failed parsing response",
                               log_error.call_args[0][0])
                 self.assertIn("blueberries", log_error.call_args[0][2])
-                
+
     def test_token_failed_post(self):
         FNID = "foo42"
         mock_get = mock.Mock(return_value=mock.Mock(
@@ -50,7 +50,6 @@ class TokenTest(unittest.TestCase):
 
         with mock.patch.object(token.requests, "get", mock_get) as get:
             with mock.patch.object(token.requests, "post", mock_post) as post:
-                with self.assertRaisesRegexp(
-                    token.ClientError, ".*Bad user/password.*") as exc:
+                with self.assertRaisesRegexp(token.ClientError,
+                                             ".*Bad user/password.*") as exc:
                     token.get_token("bad_user", "bad_pass")
-

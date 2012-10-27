@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from newhackers import app, backend
+from newhackers import app, config
 
 
 TEST_USER = 'trichechus'
@@ -20,7 +20,7 @@ class FunctionalTest(unittest.TestCase):
         r_data = json.loads(resp.data)
         self.assertIn('token', r_data)
         self.assertLessEqual(len(r_data['token']), 10)
-        
+
     def test_get_token_bad_creds(self):
         resp = self.app.post('/get_token',
                              data={'user': 'pg',
@@ -36,7 +36,7 @@ class FunctionalTest(unittest.TestCase):
         self.assertEqual(resp.content_type, 'application/json')
         r_data = json.loads(resp.data)
         self.assertItemsEqual(['more', 'stories'], r_data)
-        self.assertEqual(len(r_data['stories']), backend.STORIES_PER_PAGE)
+        self.assertEqual(len(r_data['stories']), config.STORIES_PER_PAGE)
         self.assertItemsEqual(
             ['time', 'comments', 'score', 'author', 'title', 'link'],
             r_data['stories'][0])

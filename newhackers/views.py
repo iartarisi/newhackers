@@ -2,8 +2,7 @@ import logging
 
 from flask import abort, jsonify, request
 
-from newhackers import backend, token
-from newhackers import app
+from newhackers import app, exceptions, token, stories
 
 
 @app.route("/stories")
@@ -12,7 +11,7 @@ from newhackers import app
 @app.route("/ask/")
 @app.route("/ask/<page>")
 @app.route("/stories/<page>")
-def stories(page=None):
+def get_stories(page=None):
     """Return a page of HN stories"""
     if request.url_rule.rule in ('/ask', '/ask/'):
         page = 'ask'
@@ -20,11 +19,11 @@ def stories(page=None):
         page = ''
 
     try:
-        stories = backend.get_stories(page)
-    except backend.NotFound:
+        resp = stories.get_stories(page)
+    except exceptions.NotFound:
         abort(404)
 
-    return app.response_class(stories, mimetype='application/json')
+    return app.response_class(resp, mimetype='application/json')
 
 
 @app.route("/get_token", methods=["POST"])
@@ -45,11 +44,11 @@ def get_token():
     try:
         tok = token.get_token(request.form['user'], request.form['password'])
         return jsonify(token=tok)
-    except backend.ClientError as e:
+    except exceptions.ClientError as e:
         resp = jsonify(error=e.message)
         resp.status_code = 403
         return resp
-    except backend.ServerError as e:
+    except exceptions.ServerError as e:
         resp = jsonify(error=e.message)
         resp.status_code = 500
         return resp

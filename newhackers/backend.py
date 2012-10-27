@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-import logging
 import json
 import re
 import time
@@ -10,7 +9,8 @@ import redis
 import requests
 
 from newhackers import config
-from newhackers.exceptions import ClientError, ServerError, NotFound
+from newhackers.exceptions import ServerError, NotFound
+
 
 cal = pdt.Calendar()
 rdb = redis.Redis(db=8)
@@ -73,32 +73,6 @@ def update_page(db_key, url):
     return stories_json
 
 
-def get_stories(page):
-    """Return a page of stories
-
-    :page: string - can be one of:
-     - '' - retrieves stories from the first HN page
-     - 'ask' - retrieves stories from the first page of Ask HN stories
-     - '<hash>' - a page hash which represents an identifier of a common
-       HN or Ask HN page
-    
-    Raises NotFound exception if the page was not found.
-
-    """
-    db_key = '/pages/' + page
-    try:
-        stories = rdb[db_key]
-    except KeyError:
-        stories = update_page(db_key, page)
-        return stories
-
-    if too_old(db_key):
-        # background task
-        update_page(db_key, page)
-    
-    return stories
-
-    
 def parse_stories(page):
     """Parse stories from an HN stories page
 
@@ -181,11 +155,13 @@ def parse_stories(page):
     return dict(stories=stories, more=more)
 
 
+def _extract_more(more_soup):
+    """Extract a page identifier from the <a> element in a BeautifulSoup"""
+    return more_soup.find("a")['href'].split('fnid=')[-1]
+
+
 def _decode_time(timestamp):
     """Decode time from a relative timestamp to a localtime float"""
     return time.mktime(cal.parse(timestamp)[0])
 
 
-def _extract_more(more_soup):
-    """Extract a page identifier from the <a> element in a BeautifulSoup"""
-    return more_soup.find("a")['href'].split('fnid=')[-1]
