@@ -6,7 +6,7 @@ import requests
 
 from newhackers import config
 from newhackers.parsers import parse_stories, parse_comments
-from newhackers.exceptions import NotFound, ServerError
+from newhackers.exceptions import ClientError, NotFound, ServerError
 
 
 rdb = redis.Redis(db=8)
@@ -37,14 +37,14 @@ def too_old(key):
         return True
 
 
-def update_page(db_key, url):
+def update_page(db_key, path):
     """Updates a page in the database
 
     The page is downloaded, parsed and then stored in the database as a
     JSON string. This string is also returned by the function.
     
     :db_key: a redis string of the key where the stories page will be stored
-    :url: the HN URL path where the page will be downloaded from
+    :path: the HN URL path where the page will be downloaded from
 
     Raises NotFound when the page could not be found on the remote
     server or ServerError in case the server returned a response that we
@@ -52,15 +52,7 @@ def update_page(db_key, url):
     doesn't even have sensible status codes)
 
     """
-    res = requests.get(config.HN + url)
-    # HN is ignorant of HTTP status codes
-    # all errors seem to be plain text sentences
-    if res.text in ['No such item.', 'Unknown.', 'Unknown or expired link.']:
-        raise NotFound
-
-    if not res.text.startswith("<html>"):
-        raise ServerError("HN is weird.")
-
+    res = hn_get(path)
     if db_key.startswith('/pages'):
         result = parse_stories(res.text)
     elif db_key.startswith('/comments'):
@@ -69,3 +61,28 @@ def update_page(db_key, url):
         raise TypeError('Wrong DB Key.')
 
     return json.dumps(result)
+
+
+def hn_get(*args, **kwargs):
+    """Download an HN page.
+
+    The arguments are the same as for the `requests.get` function.
+
+    Return a requests Response object
+
+    """
+    # add the domain name to the first argument which is the path
+    args = tuple([config.HN + args[0]] + list(args[1:]))
+
+    res = requests.get(*args, **kwargs)
+    # HN is ignorant of HTTP status codes
+    # all errors seem to be plain text sentences
+    if res.text in ['No such item.', 'Unknown.', 'Unknown or expired link.']:
+        raise NotFound
+
+    # An empty string as a response body is ok, that's the good response
+    # when voting
+    if not res.text.startswith("<html>") and res.text != '':
+        raise ServerError("HN is weird.")
+    
+    return res

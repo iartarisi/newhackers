@@ -4,9 +4,8 @@ import mock
 import redis
 
 from newhackers import backend, config
-from newhackers.utils import valid_url
-from fixtures import COMMENTS, COMMENTS_JSON, STORIES, STORIES_JSON
-from utils import seconds_old
+from tests.fixtures import COMMENTS, COMMENTS_JSON, STORIES, STORIES_JSON
+from tests.utils import seconds_old
 
 
 class BackendTest(unittest.TestCase):
