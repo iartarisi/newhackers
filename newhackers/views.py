@@ -54,7 +54,6 @@ def get_token():
     """
     try:
         token = auth.get_token(request.form['user'], request.form['password'])
-        return jsonify(token=token)
     except KeyError:
         abort(401)
     except exceptions.ClientError as e:
@@ -65,3 +64,5 @@ def get_token():
         resp = jsonify(error=e.message)
         resp.status_code = 500
         return resp
+
+    return jsonify(token=token)
