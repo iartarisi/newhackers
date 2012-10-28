@@ -55,4 +55,14 @@ class BackendTest(unittest.TestCase):
                 parse.assert_called_with(RESPONSE_TEXT)
                 self.assertEqual(stories_json, STORIES_JSON)
 
-
+    def test_update_page_comments(self):
+        RESPONSE_TEXT = '<html>good stories</html>'
+        mock_get = mock.Mock(return_value=mock.Mock(
+                text=RESPONSE_TEXT))
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            with mock.patch.object(backend, "parse_comments",
+                                   mock.Mock(return_value=COMMENTS)) as parse:
+                coms_json = backend.update_page("/comments/test_key", "test_url")
+                get.assert_called_with(config.HN + "test_url")
+                parse.assert_called_with(RESPONSE_TEXT)
+                self.assertEqual(coms_json, COMMENTS_JSON)
