@@ -5,7 +5,7 @@ import mock
 import redis
 from werkzeug.exceptions import NotFound
 
-from newhackers import app, auth, backend, controller, exceptions
+from newhackers import app, auth, backend, controller, exceptions, votes
 from fixtures import COMMENTS_JSON, ITEM_ID, PAGE_ID, STORIES_JSON
 
 
@@ -114,3 +114,25 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.status_code, 500)
             self.assertEqual(json.loads(response.data),
                              {'error': 'Evil Error'})
+
+    def test_vote(self):
+        with mock.patch.object(votes, "vote", return_value=True) as vote:
+            response = self.app.post('/vote',
+                                     data={'token': 'token1',
+                                           'direction': 'up',
+                                           'item': '12345'})
+            vote.assert_called_with('token1', 'up', '12345')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(json.loads(response.data),
+                             {'vote': 'Success'})
+
+    def test_vote_failed(self):
+        with mock.patch.object(votes, "vote", return_value=False) as vote:
+            response = self.app.post('/vote',
+                                     data={'token': 'token1',
+                                           'direction': 'up',
+                                           'item': '12345'})
+            vote.assert_called_with('token1', 'up', '12345')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(json.loads(response.data),
+                             {'vote': 'Fail'})

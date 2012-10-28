@@ -119,7 +119,7 @@ e.g.
 
 #### Arguments
 
-Arguments should be included in the POST request:
+Arguments should be included in the POST request. All arguments are mandatory:
 
 **user** - an existing HN username
 **password** - user's password
@@ -127,3 +127,19 @@ Arguments should be included in the POST request:
 #### Returns
 
 **token** - a token string which must be used on other POST requests which require authentication.
+
+### Voting
+
+`POST /vote`
+
+#### Arguments
+
+Arguments should be included in the POST request. All arguments are mandatory:
+
+**token** - an authentication token which will be sent as a Cookie
+**item** - string identifying the item
+**direction** - either 'up' or 'down'
+
+#### Returns
+
+**vote** - a string which is either *Success* or *Fail*

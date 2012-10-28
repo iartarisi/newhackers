@@ -1,4 +1,5 @@
 import json
+import random
 import unittest
 
 import redis
@@ -74,3 +75,26 @@ class FunctionalTest(unittest.TestCase):
             r_data)
         for comment in r_data['comments']:
             self.assertItemsEqual(['author', 'body', 'link', 'time'], comment)
+
+    def test_vote(self):
+        # this is more complicated, we need a token and an item we
+        # haven't voted on yet
+
+        # get a random story from the Ask HN page and we cross our
+        # fingers that we don't get a collision next time we run this
+        # test because we can't vote on the same item twice
+        resp = self.app.get('/ask/')
+        stories = json.loads(resp.data)['stories']
+        item = random.choice(stories)['link'].split('item?id=')[1]
+
+        # get our test user's token
+        resp = self.app.post('/get_token', data={'user': TEST_USER,
+                                                 'password': TEST_PASS})
+        token = json.loads(resp.data)['token']
+
+        # vote
+        resp = self.app.post('/vote', data={'token': token,
+                                            'direction': 'up',
+                                            'item': item})
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(json.loads(resp.data), {'vote': 'Success'})

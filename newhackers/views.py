@@ -2,7 +2,7 @@ import logging
 
 from flask import abort, jsonify, request
 
-from newhackers import app, auth, controller, exceptions
+from newhackers import app, auth, controller, exceptions, votes
 
 
 @app.route("/stories")
@@ -66,3 +66,23 @@ def get_token():
         return resp
 
     return jsonify(token=token)
+
+
+@app.route("/vote", methods=["POST"])
+def vote():
+    """Vote on an HN item"""
+    try:
+        success = votes.vote(request.form['token'], request.form['direction'],
+                             request.form['item'])
+    except KeyError:
+        abort(401)
+    except exceptions.ClientError as e:
+        resp = jsonify(error=e.message)
+        resp.status_code = 403
+        return resp
+    except exceptions.ServerError as e:
+        resp = jsonify(error=e.message)
+        resp.status_code = 500
+        return resp
+
+    return jsonify(vote='Success' if success else 'Fail')
