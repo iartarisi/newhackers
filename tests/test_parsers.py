@@ -65,6 +65,11 @@ class CommentsTest(unittest.TestCase):
     def test_parse_comments_no_comments(self):
         self.assertIsNone(parsers._parse_comments(BeautifulSoup()))
         
+    def test_parse_comments_deleted(self):
+        soup = BeautifulSoup("<span class='comhead'>Story title</span>"
+                             "<span class='comhead'></span>"
+                             "<span class='comment'>I comment</span>")
+        self.assertListEqual([], parsers._parse_comments(soup))
 
     def _pop_time(self, comments):
         """Remote the 'time' item since it's relative and it messes the tests"""
@@ -160,10 +165,3 @@ class ParseStoriesTest(unittest.TestCase):
 
     def test_parse_subtexts_no_comments(self):
         self.assertIsNone(parsers._parse_subtexts(BeautifulSoup()))
-
-    def test_parse_comments_deleted(self):
-        soup = BeautifulSoup("<span class='comhead'>Story title</span>"
-                             "<span class='comhead'></span>"
-                             "<span class='comment'>I comment</span>")
-        self.assertListEqual([], parsers._parse_comments(soup))
-        
