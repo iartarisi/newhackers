@@ -4,7 +4,7 @@ import unittest
 
 from bs4 import BeautifulSoup
 
-from newhackers import backend, config, parsers
+from newhackers import config, parsers
 from newhackers.utils import valid_url
 from fixtures import (COMMENTS_PAGE, NO_COMMENTS, ASK_COMMENTS,
                       FRONT_PAGE, STORIES)
@@ -15,11 +15,11 @@ class CommentsTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         with open(COMMENTS_PAGE) as f:
-            self.comments = backend.parse_comments(f.read())
+            self.comments = parsers.parse_comments(f.read())
         with open(NO_COMMENTS) as f:
-            self.no_comments = backend.parse_comments(f.read())
+            self.no_comments = parsers.parse_comments(f.read())
         with open(ASK_COMMENTS) as f:
-            self.ask_comments = backend.parse_comments(f.read())
+            self.ask_comments = parsers.parse_comments(f.read())
 
     def test_parse_comments_returns(self):
         self.assertItemsEqual(
@@ -61,6 +61,10 @@ class CommentsTest(unittest.TestCase):
                          {'author': u'seldo',
                           'body': 'TEST! TEST! TEST!',
                           'link': u'4705763'})
+
+    def test_parse_comments_no_comments(self):
+        self.assertIsNone(parsers._parse_comments(BeautifulSoup()))
+        
 
     def _pop_time(self, comments):
         """Remote the 'time' item since it's relative and it messes the tests"""
