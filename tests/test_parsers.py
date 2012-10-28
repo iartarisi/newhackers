@@ -160,3 +160,10 @@ class ParseStoriesTest(unittest.TestCase):
 
     def test_parse_subtexts_no_comments(self):
         self.assertIsNone(parsers._parse_subtexts(BeautifulSoup()))
+
+    def test_parse_comments_deleted(self):
+        soup = BeautifulSoup("<span class='comhead'>Story title</span>"
+                             "<span class='comhead'></span>"
+                             "<span class='comment'>I comment</span>")
+        self.assertListEqual([], parsers._parse_comments(soup))
+        

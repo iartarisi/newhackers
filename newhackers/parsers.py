@@ -76,10 +76,14 @@ def _parse_comments(soup):
     comments = []
     for head, body in zip(com_spans, comment_bodies):
         comment = {}
-        comment['author'], time = re.search(
-            '\s+(\w+)\s+((?:\w+ )+)', head.text).groups()
-        comment['time'] = _decode_time(time)
-
+        try:
+            comment['author'], c_time = re.search(
+                '\s+(\w+)\s+((?:\w+ )+)', head.text).groups()
+        except AttributeError:
+            # ignore deleted comments
+            assert not head.text
+            continue
+        comment['time'] = _decode_time(c_time)
         comment['link'] = head.find_all('a')[1]['href'].split('item?id=')[1]
         comment['body'] = body.text.strip()
         comments.append(comment)
