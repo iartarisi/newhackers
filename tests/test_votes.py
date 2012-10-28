@@ -71,3 +71,7 @@ class VotesTest(unittest.TestCase):
                 hn_get.assert_any_call('good_vote_link',
                                        cookies={'user': 'token1'})
                 find_vote.assert_called_with(hn_get().text, "1234", "up")
+
+    def test_vote_wrong_direction(self):
+        self.assertRaises(ClientError, votes.vote,
+                          "token", "left", "item")

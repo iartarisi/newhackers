@@ -12,7 +12,8 @@ def vote(token, direction, item):
     :item: string identifying the item
     :direction: either 'up' or 'down'
     """
-    assert direction in ['up', 'down']
+    if direction not in ['up', 'down']:
+        raise ClientError("Wrong direction. Must be one of: 'up', 'down'.")
 
     res = hn_get("item?id=" + item, cookies={'user': token})
     vote_link = _find_vote_link(res.text, item, direction)
