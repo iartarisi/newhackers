@@ -2,7 +2,8 @@ import time
 
 from bs4 import BeautifulSoup
 
-from newhackers.backend import rdb, update_page
+from newhackers.config import rdb
+from newhackers.backend import update_page
 from newhackers import tasks
 
 

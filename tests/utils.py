@@ -1,5 +1,10 @@
 from datetime import datetime, timedelta
+import re
 import time
+
+import redis
+
+rdb = redis.Redis(db=9)
 
 
 def seconds_old(secs):

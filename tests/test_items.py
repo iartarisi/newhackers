@@ -1,22 +1,22 @@
 import unittest
 
 import mock
-import redis
 
 from newhackers import config, items
-from fixtures import PAGE_ID, STORIES_JSON
-from utils import seconds_old
+from tests.fixtures import PAGE_ID, STORIES_JSON
+from tests.utils import seconds_old, rdb
 
 
 class ItemsTest(unittest.TestCase):
-    def setUp(self):
-        self.rdb = items.rdb = redis.Redis(db=13)
+    @classmethod
+    def setUpClass(self):
+        items.rdb = rdb
 
     def tearDown(self):
-        self.rdb.flushdb()
+        rdb.flushdb()
 
     def test_cache_first_page_cached(self):
-        self.rdb.set("test_key", STORIES_JSON)
+        rdb.set("test_key", STORIES_JSON)
 
         with mock.patch.object(items, 'update_page') as update_page:
             self.assertEqual(STORIES_JSON,
@@ -31,7 +31,7 @@ class ItemsTest(unittest.TestCase):
             update_page.assert_called_with('test_key', 'test_item')
 
     def test_cache_other_page_cached(self):
-        self.rdb.set("test_key", STORIES_JSON)
+        rdb.set("test_key", STORIES_JSON)
 
         with mock.patch.object(items, 'update_page') as update_page:
             update_page.assert_not_called()
@@ -39,9 +39,9 @@ class ItemsTest(unittest.TestCase):
                              items._get_cache('test_key', 'test_item'))
 
     def test_cache_cached_too_old_gets_update(self):
-        self.rdb.set('test_key', STORIES_JSON)
+        rdb.set('test_key', STORIES_JSON)
 
-        self.rdb.set("/test_key/updated", seconds_old(31))
+        rdb.set("/test_key/updated", seconds_old(31))
 
         with mock.patch.object(config, 'CACHE_INTERVAL', 30):
             with mock.patch.object(items.tasks.update, 'delay') as update:

@@ -2,9 +2,8 @@ import json
 import random
 import unittest
 
-import redis
-
 from newhackers import app, backend, config
+from tests.utils import rdb
 
 
 TEST_USER = 'trichechus'
@@ -12,10 +11,15 @@ TEST_PASS = 'manatus'
 
 
 class FunctionalTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        backend.rdb = rdb
 
     def setUp(self):
         self.app = app.test_client()
-        backend.rdb = redis.Redis(db=13)
+
+    def tearDown(self):
+        rdb.flushdb()
 
     def test_get_token(self):
         resp = self.app.post('/get_token', data={'user': TEST_USER,

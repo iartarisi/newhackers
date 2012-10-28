@@ -5,11 +5,9 @@ import redis
 import requests
 
 from newhackers import config
+from newhackers.config import rdb
 from newhackers.parsers import parse_stories, parse_comments
 from newhackers.exceptions import ClientError, NotFound, ServerError
-
-
-rdb = redis.Redis(db=8)
 
 
 def too_old(key):

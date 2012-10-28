@@ -7,12 +7,6 @@ from newhackers import auth, config
 
 
 class TokenTest(unittest.TestCase):
-    def setUp(self):
-        self.rdb = auth.rdb = redis.Redis(db=13)
-
-    def tearDown(self):
-        self.rdb.flushdb()
-
     def test_token(self):
         FNID = "foo42"
         mock_get = mock.Mock(return_value=mock.Mock(

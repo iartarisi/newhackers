@@ -2,21 +2,15 @@ import unittest
 
 from flask import json
 import mock
-import redis
 from werkzeug.exceptions import NotFound
 
 from newhackers import app, auth, backend, exceptions, items, votes
-from fixtures import COMMENTS_JSON, ITEM_ID, PAGE_ID, STORIES_JSON
+from tests.fixtures import COMMENTS_JSON, ITEM_ID, PAGE_ID, STORIES_JSON
 
 
 class JSONApiTest(unittest.TestCase):
-
     def setUp(self):
         self.app = app.test_client()
-        self.rdb = backend.rdb = redis.Redis(db=13)
-
-    def tearDown(self):
-        self.rdb.flushdb()
 
     def test_404_json(self):
         with app.test_request_context(

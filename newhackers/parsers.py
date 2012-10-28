@@ -3,13 +3,11 @@ import time
 
 from bs4 import BeautifulSoup
 from parsedatetime import parsedatetime as pdt
-import redis
 
 from newhackers import config
 
 
 cal = pdt.Calendar()
-rdb = redis.Redis(db=8)
 
 
 def parse_comments(page):

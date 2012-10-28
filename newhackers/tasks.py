@@ -1,6 +1,7 @@
 import time
 
-from newhackers.backend import rdb, too_old, update_page
+from newhackers.backend import too_old, update_page
+from newhackers.config import rdb
 from newhackers.celer import celery
 from newhackers.redis_lock import redis_lock, LockException
 

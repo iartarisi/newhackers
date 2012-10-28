@@ -1,27 +1,26 @@
 import unittest
 
 import mock
-import redis
 
 from newhackers import backend, config
 from newhackers.exceptions import ClientError
 from tests.fixtures import COMMENTS, COMMENTS_JSON, STORIES, STORIES_JSON
-from tests.utils import seconds_old
+from tests.utils import seconds_old, rdb
 
 
 class BackendTest(unittest.TestCase):
     def setUp(self):
-        self.rdb = backend.rdb = redis.Redis(db=13)
+        backend.rdb = rdb
 
     def tearDown(self):
-        self.rdb.flushdb()
+        rdb.flushdb()
 
     def test_time_too_old(self):
         with mock.patch.object(config, 'CACHE_INTERVAL', 30):
-            self.rdb.set("my-item/updated", seconds_old(30))
+            rdb.set("my-item/updated", seconds_old(30))
             self.assertTrue(backend.too_old("my-item"))
 
-            self.rdb.set("my-item/updated", seconds_old(29))
+            rdb.set("my-item/updated", seconds_old(29))
             self.assertFalse(backend.too_old("my-item"))
 
     def test_time_too_old_key_doesnt_exist(self):
