@@ -46,7 +46,7 @@ A **stories** list of dictionaries. Each *story* in this dictionary will have th
  * **comments_no** - the number of comments attached to that submission. Can be `null` in the case when the submission is a Jobs post and accepts no comments. If it is `-1` then the remote HN server didn't provide the number of comments.
  * **score** - the number of points that this submission has accumulated
  * **author** - the original submitter of the story to HN; can be `null` if this was a Jobs post.
- 
+ * **time** - a float indicating when the item was created (number of seconds from the Epoch)
 
 e.g.
 
@@ -66,8 +66,8 @@ e.g.
            'score': None,
            'author': None,
            'comments_no': None},
-
            ...]}
+
 
 ### Ask HN
 
@@ -111,7 +111,46 @@ e.g.
            "comments_no": 0}
            ...]}
 
+
 ### Comments
+
+`GET /comments/<int:item_id>`
+
+#### Arguments
+
+**item_id** - *optional* int identifying the item (story or comment) which the comments are attached to
+
+#### Returns
+
+Information about the item the comments are attached to plus all the comments. E.g.
+
+ * **title** - title of a story on the HN page
+ * **link** - HTTP link of the story (this can be a path to HN itself in the case of an Ask HN link or a Jobs post)
+ * **comments_no** - the number of comments attached to that submission. Can be `null` in the case when the submission is a Jobs post and accepts no comments. If it is `-1` then the remote HN server didn't provide the number of comments.
+ * **score** - the number of points that this submission has accumulated
+ * **author** - the original submitter of the story to HN; can be `null` if this was a Jobs post.
+ * **time** - a float indicating when the item was created (number of seconds from the Epoch)
+ * **comments** - a list of comment dictionaries with the following fields: *author*, *body*, *link*, *time*.
+
+e.g.
+
+    :::javascript
+    {'title': "I sooo don't like Apple anymore",
+     'link': "http://iwoz.woo",
+     'comments_no': 1337,
+     'score': 42,
+     'time': 1350901062.0,
+     'author': 'woz',
+     'comments': [{'author': 'foo',
+                   'body': 'lorem ipsum',
+                   'link': '123123123',
+                   'time': 1350901232.0},
+                  {'author': 'bar',
+                   'body': 'lorem ipsum',
+                   'link': '321321321',
+                   'time': 1350901244.0}
+                   ...]}
+
 
 ### Authentication
 
@@ -121,12 +160,13 @@ e.g.
 
 Arguments should be included in the POST request. All arguments are mandatory:
 
-**user** - an existing HN username
-**password** - user's password
+ - **user** - an existing HN username
+ - **password** - user's password
 
 #### Returns
 
 **token** - a token string which must be used on other POST requests which require authentication.
+
 
 ### Voting
 
