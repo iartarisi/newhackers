@@ -14,8 +14,6 @@ Errors set the proper HTTP code and return a message stored in the `error` field
     HTTP/1.1 404 NOT FOUND
     Content-Type: application/json
     Content-Length: 31
-    Server: gevent/0.13 Python/2.7
-    Connection: close
     Date: Sun, 28 Oct 2012 13:41:19 GMT
 
     {
