@@ -8,7 +8,7 @@ setup(
     long_description=__doc__,
     packages=['newhackers'],
     include_package_data=True,
-    install_requires=['beautifulsoup4', 'Flask', 'redis', 'requests',
-                      'parsedatetime'],
-    tests_require=['mock', 'nose'],
+    install_requires=['beautifulsoup4', 'celery', 'Flask', 'redis',
+                      'requests', 'parsedatetime', 'gevent'],
+    tests_require=['mock', 'nose', 'grequests'],
     test_suite='nose.collector')

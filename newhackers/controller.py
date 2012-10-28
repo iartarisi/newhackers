@@ -1,6 +1,9 @@
+import time
+
 from bs4 import BeautifulSoup
 
-from newhackers.backend import rdb, too_old, update_page
+from newhackers.backend import rdb, update_page
+from newhackers import tasks
 
 
 def get_stories(page):
@@ -44,10 +47,10 @@ def _get_cache(db_key, page):
         stories = rdb[db_key]
     except KeyError:
         stories = update_page(db_key, page)
+        rdb[db_key] = stories
+        rdb[db_key+'/updated'] = time.time()
         return stories
 
-    if too_old(db_key):
-        # background task
-        update_page(db_key, page)
+    tasks.update.delay(db_key, page)
 
     return stories

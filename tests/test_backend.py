@@ -5,7 +5,7 @@ import redis
 
 from newhackers import backend, config
 from newhackers.utils import valid_url
-from fixtures import STORIES, STORIES_JSON
+from fixtures import COMMENTS, COMMENTS_JSON, STORIES, STORIES_JSON
 from utils import seconds_old
 
 
@@ -43,7 +43,7 @@ class BackendTest(unittest.TestCase):
                               '/pages/test_key', 'test_url')
             get.assert_called_with(config.HN + 'test_url')
 
-    def test_update_page(self):
+    def test_update_page_stories(self):
         RESPONSE_TEXT = '<html>good stories</html>'
         mock_get = mock.Mock(return_value=mock.Mock(
                 text=RESPONSE_TEXT))
@@ -53,7 +53,6 @@ class BackendTest(unittest.TestCase):
                 stories_json = backend.update_page("/pages/test_key", "test_url")
                 get.assert_called_with(config.HN + "test_url")
                 parse.assert_called_with(RESPONSE_TEXT)
-                self.assertEqual(self.rdb.get("/pages/test_key"), STORIES_JSON)
                 self.assertEqual(stories_json, STORIES_JSON)
 
 

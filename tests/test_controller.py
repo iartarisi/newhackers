@@ -44,10 +44,10 @@ class ControllerTest(unittest.TestCase):
         self.rdb.set("/test_key/updated", seconds_old(31))
 
         with mock.patch.object(config, 'CACHE_INTERVAL', 30):
-            with mock.patch.object(controller, 'update_page') as update_page:
+            with mock.patch.object(controller.tasks.update, 'delay') as update:
                 self.assertEqual(STORIES_JSON,
                                  controller._get_cache('test_key', 'test_item'))
-                update_page.assert_called_with('test_key', 'test_item')
+                update.assert_called_with('test_key', 'test_item')
 
     def test_get_comments(self):
         with mock.patch.object(controller, '_get_cache') as get_cache:

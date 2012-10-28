@@ -68,10 +68,5 @@ def update_page(db_key, url):
         result = parse_comments(res.text)
     else:
         raise TypeError('Wrong DB Key.')
-        
-    result_json = json.dumps(result)
 
-    rdb[db_key] = result_json
-    rdb[db_key + '/updated'] = time.time()
-
-    return result_json
+    return json.dumps(result)
