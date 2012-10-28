@@ -2,7 +2,7 @@ import logging
 
 from flask import abort, jsonify, request
 
-from newhackers import app, auth, controller, exceptions, votes
+from newhackers import app, auth, items, exceptions, votes
 
 
 @app.route("/stories")
@@ -19,7 +19,7 @@ def get_stories(page=None):
         page = ''
 
     try:
-        resp = controller.get_stories(page)
+        resp = items.get_stories(page)
     except exceptions.NotFound:
         abort(404)
 
@@ -30,7 +30,7 @@ def get_stories(page=None):
 def get_comments(item_id):
     """Return story with its comments"""
     try:
-        resp = controller.get_comments(item_id)
+        resp = items.get_comments(item_id)
     except exceptions.NotFound:
         abort(404)
 

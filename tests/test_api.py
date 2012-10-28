@@ -5,7 +5,7 @@ import mock
 import redis
 from werkzeug.exceptions import NotFound
 
-from newhackers import app, auth, backend, controller, exceptions, votes
+from newhackers import app, auth, backend, exceptions, items, votes
 from fixtures import COMMENTS_JSON, ITEM_ID, PAGE_ID, STORIES_JSON
 
 
@@ -28,7 +28,7 @@ class JSONApiTest(unittest.TestCase):
                              {'error': "404: Not Found"})
 
     def test_stories_default(self):
-        with mock.patch.object(controller, "get_stories",
+        with mock.patch.object(items, "get_stories",
                                return_value=STORIES_JSON) as get_stories:
             response = self.app.get('/stories/')
             get_stories.assert_called_with('')
@@ -37,7 +37,7 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.data, STORIES_JSON)
 
     def test_ask_default(self):
-        with mock.patch.object(controller, "get_stories",
+        with mock.patch.object(items, "get_stories",
                                return_value=STORIES_JSON) as get_stories:
             response = self.app.get('/ask/')
             get_stories.assert_called_with('ask')
@@ -46,7 +46,7 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.data, STORIES_JSON)
 
     def test_stories_specific(self):
-        with mock.patch.object(controller, "get_stories",
+        with mock.patch.object(items, "get_stories",
                                return_value=STORIES_JSON) as get_stories:
             response = self.app.get('/stories/' + PAGE_ID)
             get_stories.assert_called_with(PAGE_ID)
@@ -55,7 +55,7 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.data, STORIES_JSON)
 
     def test_stories_404(self):
-        with mock.patch.object(controller, "get_stories",
+        with mock.patch.object(items, "get_stories",
                                side_effect=exceptions.NotFound
                                ) as get_stories:
             response = self.app.get('/stories/not-found')
@@ -64,7 +64,7 @@ class JSONApiTest(unittest.TestCase):
             get_stories.assert_called_with('not-found')
 
     def test_comments(self):
-        with mock.patch.object(controller, "get_comments",
+        with mock.patch.object(items, "get_comments",
                                return_value=COMMENTS_JSON) as get_comments:
             response = self.app.get('/comments/' + str(ITEM_ID))
             get_comments.assert_called_with(ITEM_ID)
@@ -73,7 +73,7 @@ class JSONApiTest(unittest.TestCase):
             self.assertEqual(response.data, COMMENTS_JSON)
 
     def test_comments_404(self):
-        with mock.patch.object(controller, "get_comments",
+        with mock.patch.object(items, "get_comments",
                                side_effect=exceptions.NotFound
                                ) as get_comments:
             response = self.app.get('/comments/404')
