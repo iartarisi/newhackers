@@ -6,8 +6,8 @@ from bs4 import BeautifulSoup
 
 from newhackers import config, parsers
 from newhackers.utils import valid_url
-from fixtures import (COMMENTS_PAGE, NO_COMMENTS, ASK_COMMENTS,
-                      FRONT_PAGE, STORIES)
+from tests.fixtures import (COMMENTS_PAGE, NO_COMMENTS, ASK_COMMENTS,
+                            FRONT_PAGE, STORIES)
 
 
 class CommentsTest(unittest.TestCase):
