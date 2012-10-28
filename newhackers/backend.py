@@ -80,6 +80,9 @@ def hn_get(*args, **kwargs):
     if res.text in ['No such item.', 'Unknown.', 'Unknown or expired link.']:
         raise NotFound
 
+    if res.text == "Can't make that vote.":
+        raise ClientError(res.text)
+
     # An empty string as a response body is ok, that's the good response
     # when voting
     if not res.text.startswith("<html>") and res.text != '':

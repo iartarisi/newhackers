@@ -4,6 +4,7 @@ import mock
 import redis
 
 from newhackers import backend, config
+from newhackers.exceptions import ClientError
 from tests.fixtures import COMMENTS, COMMENTS_JSON, STORIES, STORIES_JSON
 from tests.utils import seconds_old
 
@@ -65,3 +66,13 @@ class BackendTest(unittest.TestCase):
                 get.assert_called_with(config.HN + "test_url")
                 parse.assert_called_with(RESPONSE_TEXT)
                 self.assertEqual(coms_json, COMMENTS_JSON)
+
+    def test_hn_get_cant_make_vote(self):
+        mock_get = mock.Mock(return_value=mock.Mock(
+                text="Can't make that vote."))
+        with mock.patch.object(backend.requests, "get", mock_get) as get:
+            self.assertRaises(ClientError, backend.hn_get,
+                              "vote-for-me", cookies={'user': 'me'})
+            get.assert_called_with(config.HN + "vote-for-me",
+                                   cookies={'user': 'me'})
+    
