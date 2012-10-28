@@ -78,7 +78,7 @@ def hn_get(*args, **kwargs):
     # HN is ignorant of HTTP status codes
     # all errors seem to be plain text sentences
     if res.text in ['No such item.', 'Unknown.', 'Unknown or expired link.']:
-        raise NotFound
+        raise NotFound(res.url)
 
     if res.text == "Can't make that vote.":
         raise ClientError(res.text)
