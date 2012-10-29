@@ -16,7 +16,7 @@ Test a normal request:
 
 Run the unit test suite:
 
-    $ ./setup.py test
+    $ ./setup.py nosetests
 
 Check for other test suites in `tests/functional` and `tests/performance`
 
