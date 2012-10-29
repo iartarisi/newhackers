@@ -65,24 +65,24 @@ A **stories** list of dictionaries. Each *story* in this dictionary will have th
 
 e.g.
 
-    :::javascript
-    {'more': '4AVKeJz9TP',
-     'stories': [
-          {'title': "I sooo don't like Apple anymore",
-           'link': "http://iwoz.woo",
-           'comments_no': 1337,
-           'score': 42,
-           'time': 1350901062.0,
-           'author': 'woz'},
+```javascript
+{'more': '4AVKeJz9TP',
+ 'stories': [
+      {'title': "I sooo don't like Apple anymore",
+       'link': "http://iwoz.woo",
+       'comments_no': 1337,
+       'score': 42,
+       'time': 1350901062.0,
+       'author': 'woz'},
 
-          {'title': "Work for my startup for free",
-           'link': "item?id=1111",
-           'time': 1351333328.0,
-           'score': None,
-           'author': None,
-           'comments_no': None},
-           ...]}
-
+      {'title': "Work for my startup for free",
+       'link': "item?id=1111",
+       'time': 1351333328.0,
+       'score': None,
+       'author': None,
+       'comments_no': None},
+       ...]}
+```
 
 ### Ask HN
 
@@ -109,23 +109,23 @@ A **stories** list of dictionaries. Each *story* in this dictionary will have th
 
 e.g.
 
-    :::javascript
-    {"more": "tzTR4eFwuT",
-     "stories": [
-          {"score": 3,
-           "link": "item?id=4704287",
-           "time": 1351324947.0,
-           "title": "Ask HN: How are you setting up your Java applications?",
-           "author": "foo",
-           "comments_no": 9},
-          {"score": 43,
-           "link": "item?id=4704198",
-           "time": 1351324947.0,
-           "title": "I want to sell my startup to one of company.",
-           "author": "matrix",
-           "comments_no": 0}
-           ...]}
-
+```javascript
+{"more": "tzTR4eFwuT",
+ "stories": [
+      {"score": 3,
+       "link": "item?id=4704287",
+       "time": 1351324947.0,
+       "title": "Ask HN: How are you setting up your Java applications?",
+       "author": "foo",
+       "comments_no": 9},
+      {"score": 43,
+       "link": "item?id=4704198",
+       "time": 1351324947.0,
+       "title": "I want to sell my startup to one of company.",
+       "author": "matrix",
+       "comments_no": 0}
+       ...]}
+```
 
 ### Comments
 
@@ -149,23 +149,23 @@ Information about the item the comments are attached to plus all the comments. E
 
 e.g.
 
-    :::javascript
-    {'title': "I sooo don't like Apple anymore",
-     'link': "http://iwoz.woo",
-     'comments_no': 1337,
-     'score': 42,
-     'time': 1350901062.0,
-     'author': 'woz',
-     'comments': [{'author': 'foo',
-                   'body': 'lorem ipsum',
-                   'link': '123123123',
-                   'time': 1350901232.0},
-                  {'author': 'bar',
-                   'body': 'lorem ipsum',
-                   'link': '321321321',
-                   'time': 1350901244.0}
-                   ...]}
-
+```javascript
+{'title': "I sooo don't like Apple anymore",
+ 'link': "http://iwoz.woo",
+ 'comments_no': 1337,
+ 'score': 42,
+ 'time': 1350901062.0,
+ 'author': 'woz',
+ 'comments': [{'author': 'foo',
+               'body': 'lorem ipsum',
+               'link': '123123123',
+               'time': 1350901232.0},
+              {'author': 'bar',
+               'body': 'lorem ipsum',
+               'link': '321321321',
+               'time': 1350901244.0}
+               ...]}
+```
 
 ### Authentication
 
