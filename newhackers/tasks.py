@@ -31,7 +31,7 @@ def update(db_key, page):
                 stories = update_page(db_key, page)
                 pipe = rdb.pipeline(True)
                 pipe[db_key] = stories
-                pipe[db_key+'/updated'] = time.time()
+                pipe[db_key + '/updated'] = time.time()
                 pipe.execute()
     except LockException:
         pass

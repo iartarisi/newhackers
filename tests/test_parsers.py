@@ -81,7 +81,7 @@ class CommentsTest(unittest.TestCase):
 
     def test_parse_comments_no_comments(self):
         self.assertIsNone(parsers._parse_comments(BeautifulSoup()))
-        
+
     def test_parse_comments_deleted(self):
         soup = BeautifulSoup("<span class='comhead'>Story title</span>"
                              "<span class='comhead'></span>"

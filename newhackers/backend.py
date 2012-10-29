@@ -57,7 +57,7 @@ def update_page(db_key, path):
 
     The page is downloaded, parsed and then stored in the database as a
     JSON string. This string is also returned by the function.
-    
+
     :db_key: a redis string of the key where the stories page will be stored
     :path: the HN URL path where the page will be downloaded from
 
@@ -102,5 +102,5 @@ def hn_get(*args, **kwargs):
     # when voting
     if not res.text.startswith("<html>") and res.text != '':
         raise ServerError("HN is weird.")
-    
+
     return res

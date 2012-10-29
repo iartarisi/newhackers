@@ -34,14 +34,14 @@ def vote(token, direction, item):
 
     res = hn_get("item?id=" + item, cookies={'user': token})
     vote_link = _find_vote_link(res.text, item, direction)
-    
+
     if not vote_link:
         raise ClientError("Could not find vote link.")
 
     res = hn_get(vote_link, cookies={'user': token})
     if res.text == '':
         return True
-    
+
 
 def _find_vote_link(page, item, direction):
     """Return a vote link (HN path) for this item

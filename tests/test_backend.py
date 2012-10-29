@@ -66,7 +66,8 @@ class BackendTest(unittest.TestCase):
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             with mock.patch.object(backend, "parse_stories",
                                    mock.Mock(return_value=STORIES)) as parse:
-                stories_json = backend.update_page("/pages/test_key", "test_url")
+                stories_json = backend.update_page("/pages/test_key",
+                                                   "test_url")
                 get.assert_called_with(config.HN + "test_url")
                 parse.assert_called_with(RESPONSE_TEXT)
                 self.assertEqual(stories_json, STORIES_JSON)
@@ -78,7 +79,8 @@ class BackendTest(unittest.TestCase):
         with mock.patch.object(backend.requests, "get", mock_get) as get:
             with mock.patch.object(backend, "parse_comments",
                                    mock.Mock(return_value=COMMENTS)) as parse:
-                coms_json = backend.update_page("/comments/test_key", "test_url")
+                coms_json = backend.update_page("/comments/test_key",
+                                                "test_url")
                 get.assert_called_with(config.HN + "test_url")
                 parse.assert_called_with(RESPONSE_TEXT)
                 self.assertEqual(coms_json, COMMENTS_JSON)
@@ -91,4 +93,3 @@ class BackendTest(unittest.TestCase):
                               "vote-for-me", cookies={'user': 'me'})
             get.assert_called_with(config.HN + "vote-for-me",
                                    cookies={'user': 'me'})
-    

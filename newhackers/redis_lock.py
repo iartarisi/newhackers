@@ -31,14 +31,14 @@ def acquire_lock(conn, lockname, identifier, atime=10, ltime=10):
             return identifier
         elif not conn.ttl(lockname):
             conn.expire(lockname, ltime)
- 
+
         time.sleep(.001)
     return False
 
 
 def release_lock(conn, lockname, identifier):
     pipe = conn.pipeline(True)
- 
+
     while True:
         try:
             pipe.watch(lockname)
@@ -47,12 +47,12 @@ def release_lock(conn, lockname, identifier):
                 pipe.delete(lockname)
                 pipe.execute()
                 return True
- 
+
             pipe.unwatch()
             break
- 
+
         except redis.exceptions.WatchError:
             pass
- 
+
     # we lost the lock
     return False

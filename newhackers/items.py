@@ -58,7 +58,8 @@ def _get_cache(db_key, page):
     """Retrieves an item from HN with caching
 
     :db_key: string - the database key where the item is stored
-    :page: string - the path after the HN root from where the item is downloaded
+    :page: string - the path after the HN root from where the item
+    is downloaded
 
     Returns a JSON document representing the resource.
 
@@ -68,7 +69,7 @@ def _get_cache(db_key, page):
     except KeyError:
         stories = update_page(db_key, page)
         rdb[db_key] = stories
-        rdb[db_key+'/updated'] = time.time()
+        rdb[db_key + '/updated'] = time.time()
         return stories
 
     tasks.update.delay(db_key, page)

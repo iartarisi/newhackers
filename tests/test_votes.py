@@ -43,7 +43,7 @@ class VotesTest(unittest.TestCase):
     def test__find_vote_link_story_down(self):
         self.assertIsNone(
             votes._find_vote_link(self.front_page, STORY_ID, 'down'))
-        
+
     def test__find_vote_link_comment_up(self):
         self.assertEqual(votes._find_vote_link(self.comments, COMMENT_ID, 'up'),
                          u'vote?for=4705841&dir=up&whence=%69%74%65%6d%3f%69%64%3d%34%37%30%35%30%36%37')
@@ -61,7 +61,7 @@ class VotesTest(unittest.TestCase):
                 hn_get.assert_called_with('item?id=1234',
                                           cookies={'user': 'token1'})
                 find_vote.assert_called_with(hn_get().text, "1234", "up")
-            
+
     def test_vote(self):
         mock_get = mock.Mock(return_value=mock.Mock(
                 text=""))
@@ -74,7 +74,6 @@ class VotesTest(unittest.TestCase):
                 hn_get.assert_any_call('good_vote_link',
                                        cookies={'user': 'token1'})
                 find_vote.assert_called_with(hn_get().text, "1234", "up")
-
 
     def test_vote_failed(self):
         mock_get = mock.Mock(return_value=mock.Mock(
