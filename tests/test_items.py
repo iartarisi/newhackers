@@ -58,5 +58,6 @@ class ItemsTest(unittest.TestCase):
     def test_get_stories(self):
         with mock.patch.object(items, '_get_cache') as get_cache:
             items.get_stories('test_id')
-            get_cache.assert_called_with('/pages/test_id', 'test_id')
+            get_cache.assert_called_with('/pages/x?fnid=test_id',
+                                         'x?fnid=test_id')
 

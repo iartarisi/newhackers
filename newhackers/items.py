@@ -19,6 +19,8 @@ def get_stories(page):
     Raises NotFound exception if the page was not found.
 
     """
+    if page not in ['', 'ask']:
+        page = "x?fnid=" + page
     return _get_cache('/pages/' + page, page)
 
 
