@@ -1,3 +1,6 @@
+# Copyright Manning or Josiah Carlson?
+# http://dr-josiah.blogspot.cz/2012/01/creating-lock-with-redis.html
+
 import time
 
 import redis
