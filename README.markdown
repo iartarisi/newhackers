@@ -2,6 +2,23 @@
 
 A Flask REST API server with a redis backend and Celery background tasks for Hacker News.
 
+## Installation
+
+    $ git clone http://github.com/mapleoin/newhackers
+    $ cd newhackers
+    $ # install the redis server using your package manager and start it
+    $ ./newhackers/celer.py -A tasks worker --loglevel=INFO
+    $ ./server
+
+Test a normal request:
+
+    $ curl http://localhost:5000/stories/
+
+Run the unit test suite:
+
+    $ ./setup.py test
+
+Check for other test suites in `tests/functional` and `tests/performance`
 
 ## API
 
